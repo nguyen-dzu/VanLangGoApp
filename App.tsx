@@ -1,14 +1,11 @@
 import { Colors, Layout } from './src/constant'
-import { useCachedResources } from './src/hooks'
 import Navigation from './src/navigation'
 import React, { useEffect } from 'react'
 import Toast, { BaseToast, BaseToastProps, ToastConfig } from 'react-native-toast-message'
 import { Provider as ReduxProvider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import store, { persistor } from './src/reduxStore/store'
-import * as Updates from 'expo-updates'
-import { Alert, Text, View } from 'react-native'
-import { Home } from './src/screens/root'
+import RootNavigator from './src/navigation/RootNavigator'
 
 const toastConfigParamDefault: BaseToastProps = {
   text2Style: {
@@ -52,13 +49,12 @@ export default function App() {
   return (
       <ReduxProvider store={store}>
         <PersistGate persistor={persistor}>
-          {/* <Navigation /> */}
+          <Navigation />
           <Toast
             topOffset={Layout.statusBarHeight + 10}
             visibilityTime={3000}
             config={toastConfig}
           />
-          <Home/>
         </PersistGate>
       </ReduxProvider>
   )

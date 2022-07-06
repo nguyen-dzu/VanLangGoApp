@@ -6,13 +6,6 @@ import {
   StackScreenProps as RNStackScreenProps,
 } from '@react-navigation/stack'
 import {
-  IAddress,
-  ICleaningRoom,
-  ICollaborator,
-  IJob,
-  ILocationRoom,
-  IServiceType,
-  IVoucher,
 } from './api/apiInterfaces'
 import { ImageProps, ImageSourcePropType, TextStyle, TouchableOpacity } from 'react-native'
 
@@ -23,16 +16,20 @@ export type StorageParamList = {
 export type AuthStackParamList = {
   Login: undefined
   SignUp: undefined
-  ConfirmCode: { phoneNumber: string; onConfirm: (token: string) => void }
 }
 
 export type INavigation = StackNavigationProp<StackParamList, any>
 
-export type RootStackParamList = BottomTabParamList & {
-  Main: undefined
+export type RootStackParamList = {
+  Home: undefined
+  NavInfor: undefined
+  Notification: undefined
+  Restaurant: undefined 
+  ItemProduct: undefined
+  Address: undefined
 }
 
-export type StackParamList = AuthStackParamList & RootStackParamList & BottomTabParamList
+export type StackParamList = AuthStackParamList & RootStackParamList
 export interface StackScreenProps {
   component: React.FC<any>
   options?:
@@ -43,39 +40,11 @@ export interface StackScreenProps {
       }) => StackNavigationOptions)
 }
 
-export type BottomTabParamList = {
-  Home: undefined
-  Activity: undefined
-  Notification: undefined
-  Account: undefined
-}
-export interface BottomTabProps {
-  name: keyof BottomTabParamList
-  title?: string
-  component: React.FC<any>
-  options?: BottomTabNavigationOptions
-}
 
 export type CustomImageProps = ImageProps & { background?: boolean }
 
 export type IState = 'loading' | 'error' | 'success'
 
-export type IService = {
-  id: string
-  value: IServiceType
-  label: string
-  icon: ImageSourcePropType
-  searchingIcon: any
-  canChooseMonthlyPackage: boolean
-  canChooseFavoriteCollaborator: boolean
-  canChooseHasPetOptoin: boolean
-  canChooseRoomType: boolean
-  canChooseAirConditioner: boolean
-  canChooseRepeatMonthlyOrQuarterly: boolean
-  canChooseRepeatDaily: boolean
-  isLaundry: boolean
-  isSofa: boolean
-}
 
 export type CustomButtonProps = TouchableOpacity['props'] & {
   loading?: boolean
@@ -90,8 +59,8 @@ export type AuthStackScreenProps<T extends keyof AuthStackParamList> = RNStackSc
   T
 >
 
-export type RootStackScreenProps<T extends keyof (RootStackParamList & BottomTabParamList)> =
-  RNStackScreenProps<RootStackParamList & BottomTabParamList, T>
+export type RootStackScreenProps<T extends keyof (RootStackParamList)> =
+  RNStackScreenProps<RootStackParamList>
 
 declare global {
   namespace ReactNavigation {

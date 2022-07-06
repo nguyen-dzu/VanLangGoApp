@@ -1,16 +1,24 @@
-import React from 'react'
-import Svg, { Path, SvgProps } from 'react-native-svg'
-import Colors from '../Colors'
+import React from "react";
+import Svg, { Path, SvgProps } from "react-native-svg";
+import Colors from "../Colors";
 
 function SvgComponent({ color = Colors.gray6, ...props }: SvgProps) {
   return (
-    <Svg width={24} height={24} fill="none" {...props}>
+    <Svg width={20} height={20} viewBox="0 0 10 10" fill="none">
       <Path
-        d="M12 3a7.285 7.285 0 017.286 7.286c0 3.016-2.3 6.176-6.8 9.552a.81.81 0 01-.972 0c-4.5-3.376-6.8-6.536-6.8-9.552A7.286 7.286 0 0112 3zm0 1.619a5.667 5.667 0 00-5.667 5.667c0 2.194 1.715 4.724 5.22 7.533l.447.353.447-.353c3.505-2.809 5.22-5.34 5.22-7.533A5.667 5.667 0 0012 4.619zm0 4.048a1.619 1.619 0 110 3.237 1.619 1.619 0 010-3.237z"
-        fill={color}
+        d="M7.8125 4.0625C7.8125 6.5625 5 8.75 5 8.75C5 8.75 2.1875 6.5625 2.1875 4.0625C2.1875 2.5 3.4375 1.25 5 1.25C6.5625 1.25 7.8125 2.5 7.8125 4.0625Z"
+        stroke= {color}
+        stroke-miterlimit="10"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M5 5C5.51777 5 5.9375 4.58027 5.9375 4.0625C5.9375 3.54473 5.51777 3.125 5 3.125C4.48223 3.125 4.0625 3.54473 4.0625 4.0625C4.0625 4.58027 4.48223 5 5 5Z"
+        stroke= {color}
+        stroke-miterlimit="10"
+        stroke-linejoin="round"
       />
     </Svg>
-  )
+  );
 }
 
-export default SvgComponent
+export default SvgComponent;

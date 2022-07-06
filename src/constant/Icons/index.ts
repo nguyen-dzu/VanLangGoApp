@@ -52,8 +52,9 @@ import News from './News'
 import SendMessage from './SendMessage'
 import CreditCard from './CreditCard'
 import ThreeMinus from './ThreeMinus'
-
+import Tick from './Tick'
 export {
+  Tick,
   Wallet,
   Crown,
   Home,

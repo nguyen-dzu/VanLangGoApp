@@ -8,7 +8,7 @@ function SvgComponent({ color = Colors.gray2, ...props }: SvgProps) {
       <Path
         d="M9 18l6-6-6-6"
         stroke={color}
-        strokeWidth={2}
+        strokeWidth={3}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

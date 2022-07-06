@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { storage } from 'helpers'
+import { storage } from '../helpers'
 import queryString from 'query-string'
 
 const api = axios.create({

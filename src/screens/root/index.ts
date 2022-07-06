@@ -1,4 +1,8 @@
-import Home from "./main/Home"
+import * as Main from "./Main"
+import * as Restaurant from "./Restaurant"
+import * as Address from "./Address"
 export {
-    Home
+    Main,
+    Restaurant,
+    Address
 }
