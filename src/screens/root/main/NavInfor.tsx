@@ -1,7 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { Dimensions, SafeAreaView, StyleSheet, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Dimensions, SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Avatar, Text } from "../../../components/common";
 import { Colors, Icons, Style } from "../../../constant";
 import { RootStackParamList } from "../../../types";

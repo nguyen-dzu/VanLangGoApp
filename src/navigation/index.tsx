@@ -41,8 +41,8 @@ export default function   Navigation() {
   return (
     <>
       <NavigationContainer >
-        {/* <RootNavigator /> */}
-        <AuthNavigation />
+        <RootNavigator />
+        {/* <AuthNavigation /> */}
       </NavigationContainer>
       {/* <Loader loading={isShowLoader} /> */}
       <StatusBar backgroundColor={'#ffffff00'} style="dark" translucent={true} />

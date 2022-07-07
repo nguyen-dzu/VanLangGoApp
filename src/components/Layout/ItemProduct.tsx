@@ -1,8 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, View } from "react-native";
 import { Icons } from "../../constant";
 import { INavigation, RootStackParamList } from "../../types";
 import { Image, Text } from "../common";

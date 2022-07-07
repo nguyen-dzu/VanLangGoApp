@@ -1,7 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
 import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { Button, Image, Text } from "../../../components/common";
 import { Colors, Icons } from "../../../constant";
 import { RootStackParamList } from "../../../types";
@@ -94,7 +93,7 @@ export default function ({
           }}
         >
           <Text>Ngon Đỉnh (999+)</Text>
-          <Image source={require('../../../assets/icons/iconsSmile.svg')} />
+          {/* <Image source={require('../../../assets/icons/iconsSmile.svg')} /> */}
         </View>
       </ScrollView>
     </View>

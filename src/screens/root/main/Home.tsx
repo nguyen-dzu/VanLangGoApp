@@ -283,7 +283,7 @@ export default function ({
               showsHorizontalScrollIndicator={false}
               style={{
                 flexDirection: "row",
-                paddingRight: 10, 
+                marginRight: 10, 
               }}
             > 
              <ItemProduct />
