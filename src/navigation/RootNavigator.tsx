@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Address } from '../screens/root/Address'
-import { Home, NavInfor, Notification } from '../screens/root/Main'
+import { Home, NavInfor, Notification } from '../screens/root/main'
+import { Product } from '../screens/root/Product'
 import { Restaurant } from '../screens/root/Restaurant'
 
 import { RootStackParamList, StackScreenProps } from '../types'
@@ -45,6 +46,13 @@ const screens: IStackScreen[] = [
     component: Address,
     options:{
       headerTitle: 'Địa Chỉ Của Bạn'
+    }
+  },
+  {
+    name: 'Product',
+    component: Product,
+    options:{
+      headerShown: false,
     }
   },
   

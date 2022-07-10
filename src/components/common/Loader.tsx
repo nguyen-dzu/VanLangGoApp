@@ -1,7 +1,6 @@
-import source from '../../assets/lottie/loader.json'
-import LottieView from 'lottie-react-native'
-import React from 'react'
-import Modal from 'react-native-modal'
+import React from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import Modal from "react-native-modal";
 
 export default function ({ loading }: { loading: boolean }) {
   return (
@@ -9,12 +8,28 @@ export default function ({ loading }: { loading: boolean }) {
       isVisible={loading}
       animationIn="fadeIn"
       animationOut="fadeOut"
+      backdropOpacity={0.2}
       useNativeDriver={true}
-      hideModalContentWhileAnimating
-      backdropTransitionOutTiming={0}
-      backdropOpacity={0.4}
+      style={styles.modal}
     >
-      <LottieView style={{ height: 100, alignSelf: 'center' }} autoPlay loop source={source} />
+      <View style={styles.box}>
+        <ActivityIndicator animating={loading} size="large" color="#00244E" />
+      </View>
     </Modal>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  modal: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  box: {
+    backgroundColor: "#fff",
+    width: 90,
+    height: 90,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+});

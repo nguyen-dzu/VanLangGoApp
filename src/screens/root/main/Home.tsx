@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
   SafeAreaView,
@@ -19,6 +19,9 @@ import CarouselItem, {
 } from "../../../components/Layout/CarouselItem";
 import { Image, Text, TextInput } from "../../../components/common";
 import { ItemProduct } from "../../../components/Layout";
+import product from "../../../api/product";
+import axios from "axios";
+import api from "../../../api/api";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
 
@@ -28,8 +31,27 @@ export default function ({
   const isCarousel = useRef(null);
   const [index, setIndex] = useState(0);
   const goToNavInfor = () => navigation.navigate("NavInfor");
-  const goToNotification = () => navigation.navigate("Notification")
-  const goToAddress = () => navigation.navigate('Address')
+  const goToNotification = () => navigation.navigate("Notification");
+  const goToAddress = () => navigation.navigate("Address");
+  const [addressType0, setAddressType0] = useState(0)
+  const [detailAddress, setDetailAddress] = useState([])
+  useEffect(() => {
+    getData();
+  }, [])
+
+  const getData = async () =>{
+    const getProductAddress0 = async () => {
+      try {
+        const {pagedData} = await product.getAddressType(addressType0);
+        console.log(pagedData)
+        setDetailAddress(pagedData)
+      } catch (error) {
+        
+      }
+    }
+    await getProductAddress0();
+  }
+  
   function RenderHeader() {
     return (
       <View style={style.detailLocaltion}>
@@ -62,7 +84,7 @@ export default function ({
               marginRight: 20,
               justifyContent: "center",
             }}
-            onPress={goToNotification}
+            onPress={() => goToNotification()}
           >
             <Icons.Mail color={Colors.gray2} />
           </TouchableOpacity>
@@ -87,11 +109,8 @@ export default function ({
         style={{
           paddingVertical: 10,
           backgroundColor: Colors.background,
-          flexDirection: "row",
           paddingHorizontal: 5,
-          justifyContent: "space-between",
           alignItems: "center",
-          alignContent: "center",
         }}
       >
         <TextInput
@@ -99,7 +118,7 @@ export default function ({
           placeholder="Tìm kiếm Món Ăn, Quán Ăn ... "
           style={{
             borderRadius: 30,
-            width: 400,
+            width: widthScreen * 0.9,
           }}
           icon={"search"}
         />
@@ -275,21 +294,23 @@ export default function ({
             </Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>
-          <View style={{
-              marginTop: 10
-          }}>
+          <View
+            style={{
+              marginTop: 10,
+            }}
+          >
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               style={{
                 flexDirection: "row",
-                paddingRight: 10, 
+                paddingHorizontal: 10,
               }}
-            > 
-             <ItemProduct />
-             <ItemProduct />
-             <ItemProduct />
-             <ItemProduct />
+            >
+              <ItemProduct />
+              <ItemProduct />
+              <ItemProduct />
+              <ItemProduct />
             </ScrollView>
           </View>
         </View>
@@ -316,7 +337,7 @@ const style = StyleSheet.create({
   touchLocation: {
     paddingLeft: 13,
     flexDirection: "row",
-    alignItems: 'center'
+    alignItems: "center",
   },
   titleLocation: {
     fontSize: 18,

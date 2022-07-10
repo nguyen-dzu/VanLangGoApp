@@ -1,19 +1,22 @@
 import { useNavigation } from "@react-navigation/core";
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icons } from "../../constant";
 import { INavigation, RootStackParamList } from "../../types";
 import { Image, Text } from "../common";
+import product from "../../api/product";
 
 export default function () {
   const navigation: INavigation = useNavigation();
+  
+   
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Restaurant")}
-        style={{marginRight: 13}}
+        onPress={() => navigation.navigate("Product")}
+        style={{marginRight: 10}}
       >
         <Image
           source={require("../../assets/images/banner3.jpg")}

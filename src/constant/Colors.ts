@@ -6,8 +6,27 @@ const gray3 = '#B7B7B7'
 const gray4 = '#DFDFDF'
 const gray5 = '#EEEEEE'
 const gray6 = '#C02424'
+const tintColorLight = '#066306';
+const tintColorDark = '#fff';
+const mainColor = '#066306'
 
 export default {
+  light: {
+    text: '#000',
+    background: '#fff',
+    tint: tintColorLight,
+    tabIconDefault: '#ccc',
+    tabIconSelected: tintColorLight,
+    mainColor: mainColor
+  },
+  dark: {
+    text: '#fff',
+    background: '#000',
+    tint: tintColorDark,
+    tabIconDefault: '#ccc',
+    tabIconSelected: tintColorDark,
+    mainColor: mainColor
+  },
   background: '#fff',
   text: gray2,
   primary: '#935FDB',

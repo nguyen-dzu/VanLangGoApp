@@ -1,51 +1,45 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
-import React, { useEffect } from 'react'
-import RootNavigator from './RootNavigator'
-import AuthNavigation from "./AuthNavigator"
-export default function   Navigation() {
-  // const { isLoading, token } : any= useAppSelector(state => state.auth)
-  // const { isShowLoader } : any= useAppSelector(state => state.loader)
-  // const dispatch = useAppDispatch()
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
+import * as React from "react";
+import { ColorSchemeName } from "react-native";
+import AuthNavigator from "./AuthNavigator";
+import RootNavigator from "./RootNavigator";
+import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
+import { useState } from "react";
+import { storage, toast } from "../helpers";
+import { actions } from "../reduxStore/slices";
+import Loader from "../components/common/Loader";
 
-  // useEffect(() => {
-  //   async function bootstrapAsync() {
-  //     let token
-  //     try {
-  //       token = await storage.get('token')
-  //       if (token) {
-  //         // check token is valid
-  //         const response = await Promise.all([
-  //           userApi.get(),
-  //           promotionApi.getAllPurchasedPromotions({ page: 1, per_page: 1 }),
-  //         ])
-  //         dispatch(actions.auth.setUser(response[0].customer))
-  //         dispatch(actions.temp.setTotalVouchers(response[1].paginate.total_objects))
-  //         dispatch(actions.auth.restoreToken(token))
-  //         SplashScreen.hideAsync()
-  //       } else {
-  //         dispatch(actions.auth.restoreToken(token))
-  //         SplashScreen.hideAsync()
-  //       }
-  //     } catch (error) {
-  //       dispatch(actions.auth.logout())
-  //       SplashScreen.hideAsync()
-  //     }
-  //   }
+export default function Navigation() {
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(true);
+  const token = useAppSelector((state) => state.auth.token);
+  React.useEffect(() => {
+    getToken();
+  }, []);
 
-  //   bootstrapAsync()
-  // }, [])
-
-  // if (isLoading) return null
+  async function getToken() {
+    setLoading(true);
+    try {
+      const token = await storage.get("token");
+      if (token) {
+        dispatch(actions.auth.login(token));
+        console.log(token)
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+    setLoading(false);
+  }
 
   return (
-    <>
-      <NavigationContainer >
-        {/* <RootNavigator /> */}
-        <AuthNavigation />
-      </NavigationContainer>
-      {/* <Loader loading={isShowLoader} /> */}
-      <StatusBar backgroundColor={'#ffffff00'} style="dark" translucent={true} />
-    </>
-  )
+    <NavigationContainer>
+      <AuthNavigator />
+      {/* {token ? <RootNavigator /> : <AuthNavigator />} */}
+      <Loader loading={loading} />
+    </NavigationContainer>
+  );
 }

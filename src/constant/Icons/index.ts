@@ -53,8 +53,10 @@ import SendMessage from './SendMessage'
 import CreditCard from './CreditCard'
 import ThreeMinus from './ThreeMinus'
 import Tick from './Tick'
+import Cart from './Cart'
 export {
   Tick,
+  Cart,
   Wallet,
   Crown,
   Home,

@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StorageParamList } from '../types'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StorageParamList } from '../types';
 
 export default {
   get: async (key: keyof StorageParamList) => {
@@ -12,7 +12,7 @@ export default {
   },
 
   getAllKeys: async () => {
-    let keys = []
+    let keys: any = []
     try {
       keys = await AsyncStorage.getAllKeys()
     } catch (error) {
@@ -45,16 +45,16 @@ export default {
     }
   },
 
-  clearWithout: async (args: (keyof StorageParamList)[]) => {
-    try {
-      const allKeys: any[] = await AsyncStorage.getAllKeys()
-      for (let key of allKeys) {
-        if (!args.includes(key)) {
-          await AsyncStorage.removeItem(key)
-        }
-      }
-    } catch (error) {
-      throw error
-    }
-  },
+  // clearWithout: async (args: (keyof StorageParamList)[]) => {
+  //   try {
+  //     const allKeys: any[] = await AsyncStorage.getAllKeys()
+  //     for (let key of allKeys) {
+  //       if (!args.includes(key)) {
+  //         await AsyncStorage.removeItem(key)
+  //       }
+  //     }
+  //   } catch (error) {
+  //     throw error
+  //   }
+  // }
 }

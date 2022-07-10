@@ -1,11 +1,13 @@
-import { Colors, Layout } from './src/constant'
-import Navigation from './src/navigation'
-import React, { useEffect } from 'react'
-import Toast, { BaseToast, BaseToastProps, ToastConfig } from 'react-native-toast-message'
-import { Provider as ReduxProvider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import store, { persistor } from './src/reduxStore/store'
-import RootNavigator from './src/navigation/RootNavigator'
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast, { BaseToast, BaseToastProps, ToastConfig } from "react-native-toast-message";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Provider } from "react-redux";
+import useCachedResources from "./src/hooks/useCachedResources";
+import store from "./src/reduxStore/store";
+import { Layout } from "./src/constant";
+import Navigation from "./src/navigation";
 
 const toastConfigParamDefault: BaseToastProps = {
   text2Style: {
@@ -44,18 +46,24 @@ const toastConfig: ToastConfig = {
   ),
 }
 
-export default function App() {
 
-  return (
-      <ReduxProvider store={store}>
-        <PersistGate persistor={persistor}>
-          <Navigation />
+export default function App() {
+  const isLoadingComplete = useCachedResources();
+    if (!isLoadingComplete) {
+    return null;
+  } else {
+    return (
+      <Provider store={store}>
+        <SafeAreaProvider>
+          <Navigation/>
           <Toast
             topOffset={Layout.statusBarHeight + 10}
             visibilityTime={3000}
             config={toastConfig}
           />
-        </PersistGate>
-      </ReduxProvider>
-  )
+          <StatusBar style="dark" />
+        </SafeAreaProvider>
+      </Provider>
+    );
+  }
 }
