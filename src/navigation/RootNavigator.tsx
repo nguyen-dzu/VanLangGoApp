@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Address } from '../screens/root/Address'
+import { Cart } from '../screens/root/Cart'
 import { Home, NavInfor, Notification } from '../screens/root/main'
 import { Product } from '../screens/root/Product'
 import { Restaurant } from '../screens/root/Restaurant'
@@ -55,7 +56,13 @@ const screens: IStackScreen[] = [
       headerShown: false,
     }
   },
-  
+  {
+    name: 'Cart',
+    component: Cart,
+    options:{
+      headerTitle: 'Giỏ Hàng'
+    }
+  },
 ]
 
 export default function RootNavigator() {

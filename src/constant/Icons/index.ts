@@ -54,8 +54,10 @@ import CreditCard from './CreditCard'
 import ThreeMinus from './ThreeMinus'
 import Tick from './Tick'
 import Cart from './Cart'
+import EditAddress from './EditAddress'
 export {
   Tick,
+  EditAddress,
   Cart,
   Wallet,
   Crown,

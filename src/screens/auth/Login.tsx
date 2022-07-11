@@ -21,7 +21,7 @@ export default function ({
   navigation,
 }: StackScreenProps<AuthStackParamList, "Login">) {
   const [loading, setLoading] = useState(false);
-  
+
   const dispatch = useAppDispatch();
   useConfirmExitApp();
   const initialValues = {
@@ -43,7 +43,9 @@ export default function ({
       password: params.password,
     };
     try {
+      console.log('hello')
       const data = await authApi.login(loginParam);
+      console.log(data)
       dispatch(actions.auth.login(data));
       setLoading(false);
       toast.success("Đăng nhập thành công!");

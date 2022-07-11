@@ -4,7 +4,7 @@ const API_CONSTANTS = {
     LOGIN: '/api/Users/Login',
   },
   PRODUCT: {
-    GET_ALL: '/Products',
+    GET_ALL: '/api/Products',
     GET_ADDRESS_TYPE: (addressType: number) => `Product?AddressType=${addressType}`
   }
 }

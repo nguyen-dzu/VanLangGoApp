@@ -28,6 +28,7 @@ export type RootStackParamList = {
   ItemProduct: undefined
   Address: undefined
   Product:  undefined
+  Cart: undefined
 }
 
 export type StackParamList = AuthStackParamList & RootStackParamList

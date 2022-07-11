@@ -37,8 +37,7 @@ export default function Navigation() {
 
   return (
     <NavigationContainer>
-      <AuthNavigator />
-      {/* {token ? <RootNavigator /> : <AuthNavigator />} */}
+      {token ? <RootNavigator /> : <AuthNavigator />}
       <Loader loading={loading} />
     </NavigationContainer>
   );

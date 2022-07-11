@@ -4,8 +4,7 @@ import API_CONSTANTS from './constrant'
 
 export default {
   login: (params: ILogin): any => {
-    const reponse = api.post(API_CONSTANTS.AUTH.LOGIN, params)
-    return reponse
+return api.post(API_CONSTANTS.AUTH.LOGIN, params)
   },
 
   // signUp: (params: ISignUp): any => {
