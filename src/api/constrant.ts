@@ -5,7 +5,7 @@ const API_CONSTANTS = {
   },
   PRODUCT: {
     GET_ALL: '/api/Products',
-    GET_ADDRESS_TYPE: (addressType: number) => `Product?AddressType=${addressType}`
+    GET_ADDRESS_TYPE: (addressType: number) => `Products?AddressType=${addressType}`
   }
 }
 

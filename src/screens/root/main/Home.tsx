@@ -22,6 +22,7 @@ import { ItemProduct } from "../../../components/Layout";
 import product from "../../../api/product";
 import axios from "axios";
 import api from "../../../api/api";
+import { productApi } from "../../../api";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
 
@@ -33,25 +34,24 @@ export default function ({
   const goToNavInfor = () => navigation.navigate("NavInfor");
   const goToNotification = () => navigation.navigate("Notification");
   const goToAddress = () => navigation.navigate("Address");
-  const [addressType0, setAddressType0] = useState(0)
-  const [detailAddress, setDetailAddress] = useState([])
+  const [productType1, setProductType1] = useState([]);
   useEffect(() => {
     getData();
-  }, [])
+  }, []);
 
-  const getData = async () =>{
-    const getProductAddress0 = async () => {
+  const getData = async () => {
+    const getProductAddress1 = async () => {
       try {
-        const {pagedData} = await product.getAddressType(addressType0);
-        console.log(pagedData)
-        setDetailAddress(pagedData)
+        const { data } = await productApi.getAddressType(1);
+        const { pagedData } = data;
+        console.log(data);
+        setProductType1(pagedData);
       } catch (error) {
-        
+        console.log(error);
       }
-    }
-    await getProductAddress0();
-  }
-  
+    };
+    await getProductAddress1();
+  };
   function RenderHeader() {
     return (
       <View style={style.detailLocaltion}>
@@ -272,46 +272,14 @@ export default function ({
               <Text style={{ paddingRight: 20 }}>111/79 Đặng Thùy Trâm</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={{
-              height: 24,
-              marginTop: 20,
-              borderRadius: 20,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: widthScreen * 0.9,
-            }}
-          >
-            <Text
-              style={{
-                color: "#444444",
-                fontSize: 20,
-                fontWeight: "500",
-              }}
-            >
-              Cổng Đặng Thùy Trâm
-            </Text>
-            <Icons.ArrowRight color={"#444444"} />
-          </TouchableOpacity>
-          <View
-            style={{
-              marginTop: 10,
-            }}
-          >
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              style={{
-                flexDirection: "row",
-                paddingHorizontal: 10,
-              }}
-            >
-              <ItemProduct />
-              <ItemProduct />
-              <ItemProduct />
-              <ItemProduct />
-            </ScrollView>
+          <View>
+            {productType1.map((item: any) => (
+              <ItemProduct
+                nameProduct={item.name}
+                imageUri={item.image}
+                titleAddress="Trong Khuôn Viên Trường"
+              />
+            ))}
           </View>
         </View>
       </ScrollView>

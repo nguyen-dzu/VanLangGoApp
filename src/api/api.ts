@@ -5,12 +5,9 @@ import { storage } from '../helpers'
 import { authActions } from '../reduxStore/slices/auth'
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.26:8501',
+  baseURL: 'http://192.168.1.6:8500',
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+
   },
   paramsSerializer: params => queryString.stringify(params),
 })
@@ -25,16 +22,16 @@ api.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
 api.interceptors.response.use(
   (response: AxiosResponse<any>) => {
-    return response.data || response.data
+    return response
   },
   err => {
-    if (err.response.status == 401) {
+    if (err.status == 401) {
       const dispatch = useDispatch()
       dispatch(authActions.logout())
       storage.clear()
       throw 'Login session expired'
     } else {
-      throw err.response.error.message
+      throw err.message
     }
   }
 )

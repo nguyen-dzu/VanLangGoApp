@@ -27,7 +27,6 @@ export default function Navigation() {
       const token = await storage.get("token");
       if (token) {
         dispatch(actions.auth.login(token));
-        console.log(token)
       }
     } catch (error) {
       toast.error(error);

@@ -16,6 +16,7 @@ import { storage, toast } from "../../helpers";
 import { ILogin } from "../../api/apiInterfaces";
 import { validation } from "../../configs/validationInput";
 import { useConfirmExitApp } from "../../hooks";
+import api from "../../api/api";
 
 export default function ({
   navigation,
@@ -43,9 +44,7 @@ export default function ({
       password: params.password,
     };
     try {
-      console.log('hello')
       const data = await authApi.login(loginParam);
-      console.log(data)
       dispatch(actions.auth.login(data));
       setLoading(false);
       toast.success("Đăng nhập thành công!");

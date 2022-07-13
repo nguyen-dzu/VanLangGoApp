@@ -36,7 +36,6 @@ const slice = createSlice({
       storage.clear()
     },
   },
-
 })
 
 export const authActions = slice.actions
