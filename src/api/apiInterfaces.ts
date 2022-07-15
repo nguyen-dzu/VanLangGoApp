@@ -4,18 +4,30 @@ import moment from "moment";
 
 // AUTH
 export interface ISignUp {
-  emailAddress: string,
-  password: string,
+  emailAddress: string;
+  password: string;
 }
-
+export interface IRestaurant {
+  name: String;
+  address: String;
+  isActive: boolean;
+  banner: string;
+  userId: string;
+  addressType: number;
+  user: null;
+  categories: null;
+  products: [IProduct];
+  id: string;
+  createdAt: string;
+}
 export interface ILogin {
-  emailAddress: string
-  password: string
+  emailAddress: string;
+  password: string;
 }
 export interface IRequest {
-  page: number,
-  per_page: number
-  q?: string
+  page: number;
+  per_page: number;
+  q?: string;
 }
 export type IProduct = {
   name: string;
@@ -24,6 +36,8 @@ export type IProduct = {
   image: string;
   productTypeId: string;
   restaurantId: string;
+  id: string;
+  createdAt: string;
 };
 
 // PAGINATION

@@ -23,7 +23,6 @@ export default function ({
   navigation,
 }: StackScreenProps<RootStackParamList, "Product">) {
   const [value, onChangeText] = React.useState("Ghi Chú Cho Cửa Hàng...");
-  const goToRestaurant = () => navigation.navigate('Restaurant')
   return (
     <ScrollView>
       <KeyboardAwareScrollView
@@ -184,7 +183,6 @@ export default function ({
                 alignItems: 'center',
                 borderRadius: 10,
               }}
-              onPress={goToRestaurant}
             >
               <Text
                 style={{
@@ -206,10 +204,7 @@ export default function ({
                 paddingHorizontal: 5,
               }}
             >
-              <ItemProduct />
-              <ItemProduct />
-              <ItemProduct />
-              <ItemProduct />
+             
             </ScrollView>
         </View>
       </KeyboardAwareScrollView>

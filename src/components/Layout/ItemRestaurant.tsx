@@ -1,32 +1,37 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { IRestaurant } from "../../api/apiInterfaces";
 import { Icons } from "../../constant";
+import { INavigation } from "../../types";
 import { Image, Text } from "../common";
 
 export default function ({
-  name,
-  banner,
-  id,
+  item
 }: {
-  name: string;
-  banner: string;
-  id: any;
+  item: IRestaurant
 }) {
+  const navigation: INavigation = useNavigation();
+  const goRestaurant = () =>{
+    navigation.navigate('Restaurant', {
+      item
+    })
+  }
   return (
-    <View style={style.container} key={id}>
+    <View style={style.container} key={item.id}>
       <View>
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={goRestaurant}>
               <View>
                 <Image
                   style={style.imageItem}
                   source={{
-                    uri: `http://192.168.9.39:8500/${banner}`,
+                    uri: `http://192.168.1.5:8500/${item.banner}`,
                   }}
                 />
               </View>
               <View style={style.contentTitle}>
-                <Text style={style.name}>{name}</Text>
+                <Text style={style.name}>{item.name}</Text>
                 <View
                   style={{
                     flexDirection: "row",

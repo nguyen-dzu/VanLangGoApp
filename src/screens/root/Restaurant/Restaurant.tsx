@@ -11,8 +11,9 @@ import { RootStackParamList } from "../../../types";
 const widthScreen = Dimensions.get("window").width;
 export default function ({
   navigation: { goBack },
+  route,
 }: StackScreenProps<RootStackParamList, "Restaurant">) {
-  
+  const { item } = route.params;
   return (
     <ScrollView>
       <KeyboardAwareScrollView
@@ -33,7 +34,9 @@ export default function ({
             }}
           >
             <Image
-              source={require("../../../assets/images/banner3.jpg")}
+              source={{
+                uri: `http://192.168.1.5:8500/${item.banner}`,
+              }}
               style={{
                 width: "100%",
                 height: 200,
@@ -50,8 +53,8 @@ export default function ({
               paddingHorizontal: 0,
               backgroundColor: "#rgba(68, 68, 68, 0.7)",
               position: "absolute",
-              top: 35,
-              left: 15      ,
+              top: 45,
+              left: 15,
             }}
             hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
           >
@@ -83,7 +86,7 @@ export default function ({
                   color: Colors.gray6,
                 }}
               >
-                Trà Sữa Xe Gỗ
+                {item.name}
               </Text>
               <View style={styles.desRestaurant}>
                 <View style={styles.detailDes}>
@@ -92,7 +95,7 @@ export default function ({
                 </View>
                 <View style={styles.detailDes}>
                   <Icons.Location color={"#C02424"} />
-                  <Text style={styles.titleDes}>111/79 Đặng Thùy Trâm</Text>
+                  <Text style={styles.titleDes}>{item.address}</Text>
                 </View>
               </View>
             </View>
@@ -193,24 +196,36 @@ export default function ({
             icon={"search"}
           />
         </View>
-
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 10,
-            marginVertical: 25,
-          }}
-        >
-          <View>
-            <Text>Trà Sữa Truyền Thống</Text>
-            <Text>25.000 VNĐ</Text>
-          </View>
-          <View>
-            <Image source={require("../../../assets/images/trasua.png")} />
-          </View>
-        </TouchableOpacity>
+        {item.products.map((item, index) => {
+          console.log(item)
+          return(
+            <TouchableOpacity
+            style={{
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginHorizontal: 10,
+              marginVertical: 25,
+            }}
+            key= {index + 1}
+          >
+            <View>
+              <Text style={{
+                paddingBottom: 5,
+                fontWeight: '600',
+                fontSize: 18
+              }}>{item.name}</Text>
+              <Text>{item.price} VNĐ</Text>
+            </View>
+            <View>
+              <Image source={{
+                uri: `http://192.168.1.5:8500/${item.image}`
+              }} />
+            </View>
+          </TouchableOpacity>
+          )
+         
+        })}
       </KeyboardAwareScrollView>
     </ScrollView>
   );

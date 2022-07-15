@@ -20,6 +20,7 @@ import CarouselItem, {
 import { Image, Text, TextInput } from "../../../components/common";
 import { ItemProduct, ItemRestaurant } from "../../../components/Layout";
 import { restaurantApi } from "../../../api";
+import { IRestaurant } from "../../../api/apiInterfaces";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
 
@@ -305,13 +306,11 @@ export default function ({
               paddingHorizontal: 10,
             }}
           >
-            {restaurant0.map((item: any, index) => {
+            {restaurant0.map((item: IRestaurant, index) => {
               return (
                 <View key={index + 1}>
                   <ItemRestaurant
-                    name={item.name}
-                    banner={item.banner}
-                    id={item.id}
+                    item={item}
                   />
                 </View>
               );
@@ -334,9 +333,7 @@ export default function ({
               return (
                 <View key={index + 1}>
                   <ItemRestaurant
-                    name={item.name}
-                    banner={item.banner}
-                    id={item.id}
+                    item={item}
                   />
                 </View>
               );
@@ -358,15 +355,13 @@ export default function ({
               return (
                 <View key={index + 1}>
                   <ItemRestaurant
-                    name={item.name}
-                    banner={item.banner}
-                    id={item.id}
+                    item={item}
                   />
                 </View>
               );
             })}
           </ScrollView>
-        </View>
+        </View> 
       </ScrollView>
     </SafeAreaView>
   );

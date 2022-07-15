@@ -5,8 +5,7 @@ import {
   StackNavigationProp,
   StackScreenProps as RNStackScreenProps,
 } from '@react-navigation/stack'
-import {
-} from './api/apiInterfaces'
+import { IRestaurant } from './api/apiInterfaces'
 import { ImageProps, ImageSourcePropType, TextStyle, TouchableOpacity } from 'react-native'
 
 export type StorageParamList = {
@@ -24,12 +23,14 @@ export type RootStackParamList = {
   Home: undefined
   NavInfor: undefined
   Notification: undefined
-  Restaurant: undefined 
+  Restaurant: {item: IRestaurant} 
   ItemProduct: undefined
   Address: undefined
   Product:  undefined
   Cart: undefined
 }
+
+
 
 export type StackParamList = AuthStackParamList & RootStackParamList
 export interface StackScreenProps {
