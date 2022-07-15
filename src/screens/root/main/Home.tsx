@@ -18,11 +18,8 @@ import CarouselItem, {
   ITEM_WIDTH_PRODUCT,
 } from "../../../components/Layout/CarouselItem";
 import { Image, Text, TextInput } from "../../../components/common";
-import { ItemProduct } from "../../../components/Layout";
-import product from "../../../api/product";
-import axios from "axios";
-import api from "../../../api/api";
-import { productApi } from "../../../api";
+import { ItemProduct, ItemRestaurant } from "../../../components/Layout";
+import { restaurantApi } from "../../../api";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
 
@@ -34,23 +31,39 @@ export default function ({
   const goToNavInfor = () => navigation.navigate("NavInfor");
   const goToNotification = () => navigation.navigate("Notification");
   const goToAddress = () => navigation.navigate("Address");
-  const [productType1, setProductType1] = useState([]);
+  const [restaurant0, setRestaurant0] = useState([]);
+  const [restaurant1, setRestaurant1] = useState([]);
+  const [restaurant2, setRestaurant2] = useState([]);
+
   useEffect(() => {
-    getData();
+    getRestaurant0();
+    getRestaurant1();
+    getRestaurant2();
   }, []);
 
-  const getData = async () => {
-    const getProductAddress1 = async () => {
-      try {
-        const { data } = await productApi.getAddressType(1);
-        const { pagedData } = data;
-        console.log(data);
-        setProductType1(pagedData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    await getProductAddress1();
+  const getRestaurant0 = async () => {
+    try {
+      const data = await restaurantApi.getAddressType(0);
+      setRestaurant0(data.data?.data?.pagedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getRestaurant1 = async () => {
+    try {
+      const data = await restaurantApi.getAddressType(1);
+      setRestaurant1(data.data?.data?.pagedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getRestaurant2 = async () => {
+    try {
+      const data = await restaurantApi.getAddressType(2);
+      setRestaurant2(data.data?.data?.pagedData);
+    } catch (error) {
+      console.log(error);
+    }
   };
   function RenderHeader() {
     return (
@@ -232,6 +245,7 @@ export default function ({
           style={{
             alignItems: "center",
             marginTop: 11,
+            marginBottom: 10,
           }}
         >
           <View
@@ -272,15 +286,86 @@ export default function ({
               <Text style={{ paddingRight: 20 }}>111/79 Đặng Thùy Trâm</Text>
             </TouchableOpacity>
           </View>
-          <View>
-            {productType1.map((item: any) => (
-              <ItemProduct
-                nameProduct={item.name}
-                imageUri={item.image}
-                titleAddress="Trong Khuôn Viên Trường"
-              />
-            ))}
-          </View>
+        </View>
+
+        <View
+          style={{
+            marginHorizontal: 10,
+          }}
+        >
+          <TouchableOpacity style={style.headerAddress}>
+            <Text style={style.addressType}>Trong Khuôn Viên Trường</Text>
+            <Icons.ArrowRight color={"#444444"} />
+          </TouchableOpacity>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={{
+              flexDirection: "row",
+              paddingHorizontal: 10,
+            }}
+          >
+            {restaurant0.map((item: any, index) => {
+              return (
+                <View key={index + 1}>
+                  <ItemRestaurant
+                    name={item.name}
+                    banner={item.banner}
+                    id={item.id}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
+
+          <TouchableOpacity style={style.headerAddress}>
+            <Text style={style.addressType}>Cổng Đặng Thùy Trâm</Text>
+            <Icons.ArrowRight color={"#444444"} />
+          </TouchableOpacity>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={{
+              flexDirection: "row",
+              paddingHorizontal: 10,
+            }}
+          >
+            {restaurant1.map((item: any, index) => {
+              return (
+                <View key={index + 1}>
+                  <ItemRestaurant
+                    name={item.name}
+                    banner={item.banner}
+                    id={item.id}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
+          <TouchableOpacity style={style.headerAddress}>
+            <Text style={style.addressType}>Cổng Dương Quảng Hàm</Text>
+            <Icons.ArrowRight color={"#444444"} />
+          </TouchableOpacity>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={{
+              flexDirection: "row",
+              paddingHorizontal: 10,
+            }}
+          >
+            {restaurant2.map((item: any, index) => {
+              return (
+                <View key={index + 1}>
+                  <ItemRestaurant
+                    name={item.name}
+                    banner={item.banner}
+                    id={item.id}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -345,5 +430,14 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: widthScreen * 0.9,
+  },
+  addressType: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  headerAddress: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

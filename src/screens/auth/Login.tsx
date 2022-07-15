@@ -45,7 +45,7 @@ export default function ({
     };
     try {
       const data = await authApi.login(loginParam);
-      dispatch(actions.auth.login(data));
+      dispatch(actions.auth.login(data || data?.data));
       setLoading(false);
       toast.success("Đăng nhập thành công!");
     } catch (error) {

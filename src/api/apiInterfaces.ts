@@ -1,4 +1,7 @@
 // AUTH
+
+import moment from "moment";
+
 // AUTH
 export interface ISignUp {
   emailAddress: string,
@@ -22,6 +25,7 @@ export type IProduct = {
   productTypeId: string;
   restaurantId: string;
 };
+
 // PAGINATION
 export type IPagination = {
   page: number;

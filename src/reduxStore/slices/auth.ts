@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { storage } from '../../helpers'
+import { storage, string } from '../../helpers'
 
 type IState = {
   isLoading: boolean
@@ -31,7 +31,7 @@ const slice = createSlice({
     },
     logout: state => {
       state.isLoading = false
-      state.token = null
+      state.token = null 
       state.isLoadResource = false
       storage.clear()
     },
