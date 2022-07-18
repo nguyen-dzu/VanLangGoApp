@@ -5,11 +5,12 @@ import {
   StackNavigationProp,
   StackScreenProps as RNStackScreenProps,
 } from '@react-navigation/stack'
-import { IRestaurant } from './api/apiInterfaces'
+import { ICart, IProduct, IRestaurant } from './api/apiInterfaces'
 import { ImageProps, ImageSourcePropType, TextStyle, TouchableOpacity } from 'react-native'
 
 export type StorageParamList = {
-  token: undefined
+  token: undefined,
+  amount: number
 }
 
 export type AuthStackParamList = {
@@ -19,15 +20,16 @@ export type AuthStackParamList = {
 
 export type INavigation = StackNavigationProp<StackParamList, any>
 
-export type RootStackParamList = {
+export type RootStackParamList = AuthStackParamList & {
   Home: undefined
   NavInfor: undefined
   Notification: undefined
-  Restaurant: {item: IRestaurant} 
+  Restaurant: {item: IRestaurant, orderCart: ICart} 
   ItemProduct: undefined
   Address: undefined
   Product:  undefined
   Cart: undefined
+  ListProduct: undefined
 }
 
 

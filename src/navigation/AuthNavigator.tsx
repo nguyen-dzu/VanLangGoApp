@@ -26,7 +26,7 @@ const screens: IStackScreen[] = [
   // },
 ]
 
-export default function RootNavigator() {
+export default function AuthNavigator() {
   return <Navigator screens={screens} initialRouteName="Login" />
 }
 

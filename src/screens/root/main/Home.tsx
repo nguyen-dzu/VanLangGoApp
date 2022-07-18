@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   Dimensions,
   SafeAreaView,
   ScrollView,
@@ -21,13 +22,16 @@ import { Image, Text, TextInput } from "../../../components/common";
 import { ItemProduct, ItemRestaurant } from "../../../components/Layout";
 import { restaurantApi } from "../../../api";
 import { IRestaurant } from "../../../api/apiInterfaces";
+import { useDispatch } from "react-redux";
+import { actions } from "../../../reduxStore/slices";
+import { toast } from "../../../helpers";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
-
 export default function ({
   navigation,
 }: StackScreenProps<RootStackParamList, "Home">) {
   const isCarousel = useRef(null);
+  const dispatch = useDispatch();
   const [index, setIndex] = useState(0);
   const goToNavInfor = () => navigation.navigate("NavInfor");
   const goToNotification = () => navigation.navigate("Notification");
@@ -35,37 +39,39 @@ export default function ({
   const [restaurant0, setRestaurant0] = useState([]);
   const [restaurant1, setRestaurant1] = useState([]);
   const [restaurant2, setRestaurant2] = useState([]);
-
   useEffect(() => {
-    getRestaurant0();
-    getRestaurant1();
-    getRestaurant2();
+    getData();
   }, []);
+  const getData = async () => {
+    const getRestaurant0 = async () => {
+      try {
+        const data = await restaurantApi.getAddressType(0);
+        setRestaurant0(data.data.pagedData);
+      } catch (error) {
+        toast.error("có lỗi sảy ra");
+      }
+    };
+    const getRestaurant1 = async () => {
+      try {
+        const data = await restaurantApi.getAddressType(1);
+        setRestaurant1(data.data.pagedData);
+      } catch (error) {
+        toast.error("có lỗi sảy ra");
+      }
+    };
+    const getRestaurant2 = async () => {
+      try {
+        const data = await restaurantApi.getAddressType(2);
+        setRestaurant2(data.data.pagedData);
+      } catch (error) {
+        toast.error("có lỗi sảy ra");
+      }
+    };
+    await getRestaurant0();
+    await getRestaurant1();
+    await getRestaurant2();
+  };
 
-  const getRestaurant0 = async () => {
-    try {
-      const data = await restaurantApi.getAddressType(0);
-      setRestaurant0(data.data?.data?.pagedData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getRestaurant1 = async () => {
-    try {
-      const data = await restaurantApi.getAddressType(1);
-      setRestaurant1(data.data?.data?.pagedData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getRestaurant2 = async () => {
-    try {
-      const data = await restaurantApi.getAddressType(2);
-      setRestaurant2(data.data?.data?.pagedData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   function RenderHeader() {
     return (
       <View style={style.detailLocaltion}>
@@ -199,7 +205,9 @@ export default function ({
           }}
         >
           <View style={style.containerIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ListProduct")}
+            >
               <Image source={require("../../../assets/images/douong.png")} />
               <Text style={style.titleIcon}>Đồ Uống</Text>
             </TouchableOpacity>
@@ -309,9 +317,7 @@ export default function ({
             {restaurant0.map((item: IRestaurant, index) => {
               return (
                 <View key={index + 1}>
-                  <ItemRestaurant
-                    item={item}
-                  />
+                  <ItemRestaurant item={item}/>
                 </View>
               );
             })}
@@ -332,9 +338,7 @@ export default function ({
             {restaurant1.map((item: any, index) => {
               return (
                 <View key={index + 1}>
-                  <ItemRestaurant
-                    item={item}
-                  />
+                  <ItemRestaurant item={item} />
                 </View>
               );
             })}
@@ -354,14 +358,12 @@ export default function ({
             {restaurant2.map((item: any, index) => {
               return (
                 <View key={index + 1}>
-                  <ItemRestaurant
-                    item={item}
-                  />
+                  <ItemRestaurant item={item} />
                 </View>
               );
             })}
           </ScrollView>
-        </View> 
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

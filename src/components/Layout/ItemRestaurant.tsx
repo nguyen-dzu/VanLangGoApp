@@ -1,20 +1,20 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { IRestaurant } from "../../api/apiInterfaces";
+import { ICart, IRestaurant } from "../../api/apiInterfaces";
 import { Icons } from "../../constant";
 import { INavigation } from "../../types";
 import { Image, Text } from "../common";
 
 export default function ({
-  item
+  item,
 }: {
-  item: IRestaurant
+  item: IRestaurant,
 }) {
   const navigation: INavigation = useNavigation();
   const goRestaurant = () =>{
     navigation.navigate('Restaurant', {
-      item
+      item,
     })
   }
   return (
@@ -26,7 +26,7 @@ export default function ({
                 <Image
                   style={style.imageItem}
                   source={{
-                    uri: `http://192.168.1.5:8500/${item.banner}`,
+                    uri: `http://192.168.1.6:8500/${item.banner}`,
                   }}
                 />
               </View>

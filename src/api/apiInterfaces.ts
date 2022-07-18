@@ -16,7 +16,7 @@ export interface IRestaurant {
   addressType: number;
   user: null;
   categories: null;
-  products: [IProduct];
+  products: [IProduct,];
   id: string;
   createdAt: string;
 }
@@ -39,7 +39,24 @@ export type IProduct = {
   id: string;
   createdAt: string;
 };
-
+export type ICart = {
+  userId: string;
+  productId: string;
+  amount: number;
+  user: IUser;
+  product: IProduct;
+};
+export type IUser = {
+  emailAddress: string;
+  avatar: null;
+  fullName: string;
+  phoneNumber: null;
+  roleId: string;
+  isActive: true;
+  role: null;
+  id: string;
+  createdAt: string;
+};
 // PAGINATION
 export type IPagination = {
   page: number;

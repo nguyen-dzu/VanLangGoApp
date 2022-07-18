@@ -1,111 +1,130 @@
 import { useNavigation } from "@react-navigation/core";
 import { StackScreenProps } from "@react-navigation/stack";
-import React, { useEffect } from "react";
-import { Dimensions, ScrollView, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Icons } from "../../constant";
+import { Colors, Icons } from "../../constant";
 import { INavigation, RootStackParamList } from "../../types";
 import { Image, Text } from "../common";
 import product from "../../api/product";
 import { SLIDER_WIDTH } from "./CarouselItem";
-const widthScreen = Dimensions.get("window").width;
-const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
-
-export default function ({
-  imageUri,
-  nameProduct,
-  titleAddress,
-}: {
-  imageUri: String;
-  nameProduct: String;
-  titleAddress: String;
-}) {
-  const navigation: INavigation = useNavigation();
-
+import { IProduct } from "../../api/apiInterfaces";
+import { cartApi } from "../../api";
+import { actions } from "../../reduxStore/slices";
+import { storage } from "../../helpers";
+export default function ({ item }: { item: IProduct }) {
+  const [amountProduct, setAmountProduct] = useState(2);
+  const upAmount = async () => {
+    try {
+      setAmountProduct((count) => count + 1);
+      await storage.set("amount", amountProduct);
+      const amount2 = await storage.get('amount')
+      console.log(amount2)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const dowAmount = async () => {
+    try {
+      setAmountProduct((count) => Math.min(1, count + 1));
+      await storage.remove('amount')
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <View>
-      <TouchableOpacity
-        style={{
-          height: 24,
-          marginTop: 20,
-          borderRadius: 20,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: widthScreen * 0.9,
-        }}
-      >
-        <Text
-          style={{
-            color: "#444444",
-            fontSize: 20,
-            fontWeight: "500",
-          }}
-        >
-          {titleAddress}
-        </Text>
-        <Icons.ArrowRight color={"#444444"} />
-      </TouchableOpacity>
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <View
         style={{
-          marginTop: 10,
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 15,
+          marginVertical: 25,
         }}
+        // onPress={() => getData(item)}
       >
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+        <View
           style={{
-            flexDirection: "row",
-            paddingHorizontal: 10,
+            marginRight: "18%",
           }}
         >
+          <Text
+            style={{
+              marginVertical: 10,
+              fontWeight: "600",
+              fontSize: 22,
+            }}
+          >
+            {item.name}
+          </Text>
           <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Product")}
-              style={{ marginRight: 10 }}
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "300",
+              }}
             >
-              <Image
-                source={{
-                  uri: `http://192.168.1.5:8500/${imageUri}`,
-                }}
-                style={{
-                  width: 105,
-                  height: 110,
-                  borderRadius: 10,
-                }}
-              />
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 15,
-                  lineHeight: 10,
-                  paddingTop: 10,
-                }}
-              >
-                {nameProduct}
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Icons.HeartFill color={"#E74C3C"} />
-                <Text
-                  style={{
-                    paddingLeft: 3,
-                    fontWeight: "300",
-                    fontSize: 12,
-                    color: "#999999",
-                  }}
-                >
-                  5,0 (999+) . Tòa F
-                </Text>
-              </View>
-            </TouchableOpacity>
+              {item.description}
+            </Text>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "300",
+              }}
+            >
+              {item.price} VNĐ
+            </Text>
           </View>
-        </ScrollView>
+        </View>
+        <View style={{}}>
+          <Image
+            style={{
+              width: 80,
+              height: 90,
+              borderRadius: 10,
+            }}
+            source={{
+              uri: `http://192.168.1.6:8500/${item.image}`,
+            }}
+          />
+        </View>
+      </View>
+      <View
+        style={{
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity onPress={() => upAmount()}>
+          <Icons.ArrowRight color={Colors.gray6} style={styles.up} />
+        </TouchableOpacity>
+
+        <Text
+          style={{
+            fontSize: 20,
+          }}
+        >
+          {amountProduct - 1}
+        </Text>
+        <TouchableOpacity onPress={() => dowAmount()}>
+          <Icons.ArrowRight color={Colors.gray6} style={styles.dow} />
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  up: {
+    transform: [{ rotate: "-90deg" }],
+  },
+  dow: {
+    transform: [{ rotate: "90deg" }],
+  },
+});

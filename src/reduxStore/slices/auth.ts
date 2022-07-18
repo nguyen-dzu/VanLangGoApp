@@ -33,7 +33,7 @@ const slice = createSlice({
       state.isLoading = false
       state.token = null 
       state.isLoadResource = false
-      storage.clear()
+      storage.remove('token')
     },
   },
 })

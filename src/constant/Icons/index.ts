@@ -55,8 +55,10 @@ import ThreeMinus from './ThreeMinus'
 import Tick from './Tick'
 import Cart from './Cart'
 import EditAddress from './EditAddress'
+import Vnd from './Vnd'
 export {
   Tick,
+  Vnd,
   EditAddress,
   Cart,
   Wallet,

@@ -2,12 +2,14 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Address } from '../screens/root/Address'
 import { Cart } from '../screens/root/Cart'
-import { Home, NavInfor, Notification } from '../screens/root/main'
+import { List } from '../screens/root'
+import { Home, NavInfor, Notification,  } from '../screens/root/main'
 import { Product } from '../screens/root/Product'
 import { Restaurant } from '../screens/root/Restaurant'
 
 import { RootStackParamList, StackScreenProps } from '../types'
 import Navigator from './Navigator'
+import Login from '../screens/auth/Login'
 
 interface IStackScreen extends StackScreenProps {
   name: keyof RootStackParamList
@@ -61,6 +63,20 @@ const screens: IStackScreen[] = [
     component: Cart,
     options:{
       headerTitle: 'Giỏ Hàng'
+    }
+  },
+  {
+    name: 'ListProduct',
+    component: List.ListProduct,
+    options:{
+      headerTitle: ''
+    }
+  },
+  {
+    name: 'Login',
+    component: Login,
+    options:{
+      headerTitle: ''
     }
   },
 ]
