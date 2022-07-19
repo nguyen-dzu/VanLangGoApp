@@ -24,7 +24,7 @@ export type RootStackParamList = AuthStackParamList & {
   Home: undefined
   NavInfor: undefined
   Notification: undefined
-  Restaurant: {item: IRestaurant, orderCart: ICart} 
+  Restaurant: {item: IRestaurant} 
   ItemProduct: undefined
   Address: undefined
   Product:  undefined

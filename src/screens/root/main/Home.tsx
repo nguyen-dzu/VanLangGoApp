@@ -25,6 +25,7 @@ import { IRestaurant } from "../../../api/apiInterfaces";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../reduxStore/slices";
 import { toast } from "../../../helpers";
+import product from "../../../api/product";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
 export default function ({
@@ -39,6 +40,7 @@ export default function ({
   const [restaurant0, setRestaurant0] = useState([]);
   const [restaurant1, setRestaurant1] = useState([]);
   const [restaurant2, setRestaurant2] = useState([]);
+  const [productType, setProductType] = useState([]);
   useEffect(() => {
     getData();
   }, []);
@@ -67,6 +69,16 @@ export default function ({
         toast.error("có lỗi sảy ra");
       }
     };
+    const getProduct = async () => {
+      try {
+        const data = await product.getProductType();
+        setProductType(data);
+        console.log(data);
+      } catch (error) {
+        toast.error("có lỗi sảy ra");
+      }
+    };
+    await getProduct();
     await getRestaurant0();
     await getRestaurant1();
     await getRestaurant2();
@@ -199,57 +211,46 @@ export default function ({
             </View>
           </View>
         </TouchableOpacity>
-        <View
-          style={{
-            marginTop: 12,
-          }}
-        >
-          <View style={style.containerIcon}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("ListProduct")}
-            >
-              <Image source={require("../../../assets/images/douong.png")} />
-              <Text style={style.titleIcon}>Đồ Uống</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/images/com.png")} />
-              <Text style={style.titleIcon}>Cơm</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/images/donuoc.png")} />
-              <Text style={style.titleIcon}>Đồ Nước</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/images/anvat.png")} />
-              <Text style={style.titleIcon}>Ăn Vặt</Text>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              marginTop: 19,
-              marginLeft: 24,
-            }}
-          >
-            <TouchableOpacity
+        <View style={{
+          flexDirection: 'row',
+          marginHorizontal: 10,
+          alignItems: 'center',
+
+        }}>
+        {productType.map((item: any, index) => {
+          return (
+            <View
               style={{
-                marginRight: 35,
-                alignContent: "center",
-                alignItems: "center",
+                marginTop: 12,
               }}
+              key={index + 1}
             >
-              <Image
-                source={require("../../../assets/images/doannhanh.png")}
-                style={{ alignItems: "center" }}
-              />
-              <Text style={style.titleIcon}>Đồ Ăn Nhanh</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/images/trasua.png")} />
-              <Text style={style.titleIcon}>Trà Sữa</Text>
-            </TouchableOpacity>
-          </View>
+              <View style={style.containerIcon}>
+                <TouchableOpacity
+                style={{
+                  alignItems: 'center'
+                }}
+                  onPress={() => navigation.navigate("ListProduct")}
+                >
+                  <Image
+                  style = {{
+                    width: 50,
+                    height: 50
+                  }}
+                    source={{
+                      uri: `http://192.168.1.2:8500/${item.image}`,
+                    }}
+                  />
+                  <Text style={style.titleIcon}>{item.name}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          );
+        })}
         </View>
+
+      
+
         <View
           style={{
             alignItems: "center",
@@ -317,7 +318,7 @@ export default function ({
             {restaurant0.map((item: IRestaurant, index) => {
               return (
                 <View key={index + 1}>
-                  <ItemRestaurant item={item}/>
+                  <ItemRestaurant item={item} />
                 </View>
               );
             })}
@@ -404,8 +405,6 @@ const style = StyleSheet.create({
     paddingLeft: 20,
   },
   containerIcon: {
-    flexDirection: "row",
-    justifyContent: "space-around",
     marginTop: 19,
     marginLeft: 12,
     marginRight: 12,

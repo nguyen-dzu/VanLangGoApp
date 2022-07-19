@@ -9,4 +9,7 @@ export default {
   getAddressType: (addressType: number): any => {
     return api.get(API_CONSTANTS.PRODUCT.GET_ADDRESS_TYPE(addressType));
   },
+  getProductType: (): any => {
+    return api.get(API_CONSTANTS.PRODUCT.GET_PRODUCT_TYPE);
+  }
 };

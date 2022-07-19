@@ -7,11 +7,12 @@ import { Colors, Icons } from "../../constant";
 import { INavigation, RootStackParamList } from "../../types";
 import { Image, Text } from "../common";
 import product from "../../api/product";
-import { SLIDER_WIDTH } from "./CarouselItem";
 import { IProduct } from "../../api/apiInterfaces";
 import { cartApi } from "../../api";
 import { actions } from "../../reduxStore/slices";
 import { storage } from "../../helpers";
+export const SLIDER_WIDTH = Dimensions.get("window").width;
+
 export default function ({ item }: { item: IProduct }) {
   const [amountProduct, setAmountProduct] = useState(2);
   const upAmount = async () => {
