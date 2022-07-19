@@ -57,7 +57,7 @@ export default function ({
       <View
         style={{
           backgroundColor: "#F7F7F7",
-          height: 90,
+          height: 100,
         }}
       >
         <View
@@ -72,10 +72,14 @@ export default function ({
           <View
             style={{
               flexDirection: "row",
+              alignItems: 'center'
             }}
           >
-            <Icons.Cart width={50} height={50} />
-            <Text>X{amountProduct}</Text>
+            <Icons.BigCart width={45} height={45} />
+            <Text style= {{
+              fontSize: 35,
+              fontWeight: '200'
+            }}>X{amountProduct}</Text>
           </View>
           <TouchableOpacity
             style={{
@@ -104,7 +108,7 @@ export default function ({
     <View>
       <ScrollView
         style={{
-          height: heightScreen * 0.9,
+          height: heightScreen * 0.89,
         }}
       >
         <KeyboardAwareScrollView
@@ -126,7 +130,7 @@ export default function ({
             >
               <Image
                 source={{
-                  uri: `http://192.168.1.6:8500/${item.banner}`,
+                  uri: `http://192.168.1.2:8500/${item.banner}`,
                 }}
                 style={{
                   width: "100%",

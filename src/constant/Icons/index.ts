@@ -56,8 +56,10 @@ import Tick from './Tick'
 import Cart from './Cart'
 import EditAddress from './EditAddress'
 import Vnd from './Vnd'
+import BigCart from "./BigCart"
 export {
   Tick,
+  BigCart,
   Vnd,
   EditAddress,
   Cart,

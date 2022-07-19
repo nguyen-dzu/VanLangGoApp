@@ -1,3 +1,4 @@
+import { IOrder } from "./apiInterfaces"
 
 const API_CONSTANTS = {
   AUTH: {
@@ -15,7 +16,12 @@ const API_CONSTANTS = {
     GET_ALL : '/api/Carts',
     POST_CART: (ProductId: string, amount: number) => `/api/Carts?productId=${ProductId}&amount=${amount}`,
     UPDATE_CART: (ProductId: string, amount: number) => `/api/Carts?productId=${ProductId}&amount=${amount}`,
-    DELETE_CART: (ProductId: string) => `/api/Carts?productId=${ProductId}`
+    DELETE_CART: (ProductId: string) => `/api/Carts?productId=${ProductId}`,
+    CLEAR_CART: '/api/Carts/Clear',
+  },
+  ORDER: {
+    GET: (orderId: string) => `/api/Orders?orderId=${orderId}`,
+    POST_ORDER: `/api/Orders`
   }
 }
 

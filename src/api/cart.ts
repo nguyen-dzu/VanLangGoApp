@@ -12,6 +12,9 @@ export default {
     return api.put(API_CONSTANTS.CART.UPDATE_CART(ProductId, amount));
   },
   delCart: (ProductId: string): any => {
-    return api.get(API_CONSTANTS.CART.DELETE_CART(ProductId));
+    return api.delete(API_CONSTANTS.CART.DELETE_CART(ProductId));
   },
+  clearCart: (): any => {
+    return api.delete(API_CONSTANTS.CART.CLEAR_CART);
+  }
 };

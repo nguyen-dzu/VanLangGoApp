@@ -1,4 +1,5 @@
-import * as Yup from 'yup'
+import * as Yup from "yup";
+import Regex from "./Regex";
 
 export const defaultInput = {
   name: {
@@ -13,23 +14,29 @@ export const defaultInput = {
   text: {
     invalid: (title: string) => `${title} không hợp lệ`,
     empty: (title: string) => `${title} không được để trống`,
-    min: (title: string, number: number) => `${title} phải tối thiểu ${number} ký tự`,
+    min: (title: string, number: number) =>
+      `${title} phải tối thiểu ${number} ký tự`,
     max: (title: string) => `${title} quá dài`,
-    notMatch: (title: string) => `${title} không trùng khớp`
+    notMatch: (title: string) => `${title} không trùng khớp`,
   },
-}
+};
 
-const { name, password, text } = defaultInput
+const { name, password, text } = defaultInput;
 
 export const validation = {
+  address: (title: string) => Yup.string().required(text.empty(title)),
+  phone: (title: string) =>
+  Yup.string()
+    .matches(Regex.vietnamPhoneNumber, text.invalid(title))
+    .required(text.invalid(title)),
   name: (title: string) =>
     Yup.string()
       .min(name.min, text.min(title, name.min))
       .max(name.max, text.max(title))
       .required(text.empty(title)),
 
-  email: (title: string) => Yup.string().email(text.invalid(title)).required(text.empty(title)),
-
+  email: (title: string) =>
+    Yup.string().email(text.invalid(title)).required(text.empty(title)),
 
   password: (title: string) =>
     Yup.string()
@@ -40,12 +47,7 @@ export const validation = {
   password_confirmation: (title: string) =>
     Yup.string()
       .required(text.empty(title))
-      .oneOf([Yup.ref('password')], text.notMatch(title)),
+      .oneOf([Yup.ref("password")], text.notMatch(title)),
   string: (title: string) => Yup.string().required(text.empty(title)),
-  inputCode: () =>
-    Yup.string()
-      .required()
-      .max(1)
-
-
-}
+  inputCode: () => Yup.string().required().max(1),
+};

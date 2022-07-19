@@ -39,6 +39,11 @@ export type IProduct = {
   id: string;
   createdAt: string;
 };
+export type IOrder = {
+  address: string,
+  phoneNumber: string,
+  note: string
+}
 export type ICart = {
   userId: string;
   productId: string;

@@ -26,7 +26,7 @@ export default function ({
                 <Image
                   style={style.imageItem}
                   source={{
-                    uri: `http://192.168.1.6:8500/${item.banner}`,
+                    uri: `http://192.168.1.2:8500/${item.banner}`,
                   }}
                 />
               </View>

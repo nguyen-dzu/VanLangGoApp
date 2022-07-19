@@ -52,7 +52,7 @@ export default function ({ item }: { item: IProduct }) {
       >
         <View
           style={{
-            marginRight: "18%",
+            marginRight: "31%",
           }}
         >
           <Text
@@ -91,7 +91,7 @@ export default function ({ item }: { item: IProduct }) {
               borderRadius: 10,
             }}
             source={{
-              uri: `http://192.168.1.6:8500/${item.image}`,
+              uri: `http://192.168.1.2:8500/${item.image}`,
             }}
           />
         </View>
