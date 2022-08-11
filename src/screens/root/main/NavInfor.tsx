@@ -27,7 +27,6 @@ export default function ({
           onPress: () => {
             navigation.replace('Login');
             dispatch(actions.auth.logout());
-            console.log()
           },
         },
       ],
@@ -42,9 +41,15 @@ export default function ({
           <Avatar source={require("../../../assets/images/banner3.jpg")} style={styles.avatarInfor} />
           <Text style= {styles.nameInfor}>Nguyễn Hoàng Vũ</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerItem}>
+        <TouchableOpacity style={styles.containerItem} onPress={() => navigation.navigate('SignUpShipper')}>
             <Text style={{paddingLeft: 13, fontSize: 20, fontWeight: '300'}}>
                 Đăng Ký Làm shipper
+            </Text>
+            <Icons.ArrowRight color={Colors.black} style={{width: 20, height: 20, paddingRight: 40}} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.containerItem} onPress={() => navigation.navigate('SignUpShipper')}>
+            <Text style={{paddingLeft: 13, fontSize: 20, fontWeight: '300'}}>
+                Đăng Ký Trở Thành Quán Ăn
             </Text>
             <Icons.ArrowRight color={Colors.black} style={{width: 20, height: 20, paddingRight: 40}} />
         </TouchableOpacity>

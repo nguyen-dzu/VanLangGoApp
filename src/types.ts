@@ -5,9 +5,9 @@ import {
   StackNavigationProp,
   StackScreenProps as RNStackScreenProps,
 } from '@react-navigation/stack'
-import { ICart, IProduct, IRestaurant } from './api/apiInterfaces'
+import { ICart, IProduct, IProductType, IRestaurant } from './api/apiInterfaces'
 import { ImageProps, ImageSourcePropType, TextStyle, TouchableOpacity } from 'react-native'
-
+export const BASE_URL = 'http://192.168.1.5:8500'
 export type StorageParamList = {
   token: undefined,
   amount: number
@@ -16,6 +16,7 @@ export type StorageParamList = {
 export type AuthStackParamList = {
   Login: undefined
   SignUp: undefined
+  SignUpShipper: undefined
 }
 
 export type INavigation = StackNavigationProp<StackParamList, any>
@@ -29,7 +30,11 @@ export type RootStackParamList = AuthStackParamList & {
   Address: undefined
   Product:  undefined
   Cart: undefined
-  ListProduct: undefined
+  ListProduct: {item: IProductType}
+  RestaurantType0: undefined
+  RestaurantType1: undefined
+  RestaurantType2: undefined
+  Order: undefined
 }
 
 

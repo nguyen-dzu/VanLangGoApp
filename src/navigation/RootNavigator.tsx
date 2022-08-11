@@ -5,7 +5,7 @@ import { Cart } from '../screens/root/Cart'
 import { List } from '../screens/root'
 import { Home, NavInfor, Notification,  } from '../screens/root/main'
 import { Product } from '../screens/root/Product'
-import { Restaurant } from '../screens/root/Restaurant'
+import { Restaurant, RestaurantType0, RestaurantType1, RestaurantType2 } from '../screens/root/Restaurant'
 
 import { RootStackParamList, StackScreenProps } from '../types'
 import Navigator from './Navigator'
@@ -69,16 +69,31 @@ const screens: IStackScreen[] = [
     name: 'ListProduct',
     component: List.ListProduct,
     options:{
-      headerTitle: ''
+      headerShown: false
     }
   },
   {
-    name: 'Login',
-    component: Login,
+    name: 'RestaurantType0',
+    component: RestaurantType0,
     options:{
-      headerTitle: ''
+      headerTitle: 'Trong Khuôn Viên Trường'
     }
   },
+  {
+    name: 'RestaurantType1',
+    component: RestaurantType1,
+    options:{
+      headerTitle: 'Cổng Đặng Thùy Trâm'
+    }
+  },
+  {
+    name: 'RestaurantType2',
+    component: RestaurantType2,
+    options:{
+      headerTitle: 'Cổng Dương Quảng Hàm'
+    }
+  },
+  
 ]
 
 export default function RootNavigator() {

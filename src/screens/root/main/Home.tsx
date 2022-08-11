@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { RootStackParamList } from "../../../types";
+import { BASE_URL, RootStackParamList } from "../../../types";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Colors, Icons, Layout } from "../../../constant";
 import { dataSrc } from "../../../components/Layout/srcBanner";
@@ -73,7 +73,6 @@ export default function ({
       try {
         const data = await product.getProductType();
         setProductType(data);
-        console.log(data);
       } catch (error) {
         toast.error("có lỗi sảy ra");
       }
@@ -228,19 +227,24 @@ export default function ({
               <View style={style.containerIcon}>
                 <TouchableOpacity
                 style={{
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  width: widthScreen * 0.124,
                 }}
-                  onPress={() => navigation.navigate("ListProduct")}
+                  onPress={() => navigation.navigate("ListProduct", {item})}
                 >
+                  <View style={{
+                    height: 60
+                  }}>
                   <Image
                   style = {{
-                    width: 50,
+                    width: 50, 
                     height: 50
                   }}
                     source={{
-                      uri: `http://192.168.1.2:8500/${item.image}`,
+                      uri: `${BASE_URL}/${item.image}`,
                     }}
                   />
+                  </View>
                   <Text style={style.titleIcon}>{item.name}</Text>
                 </TouchableOpacity>
               </View>
@@ -303,7 +307,8 @@ export default function ({
             marginHorizontal: 10,
           }}
         >
-          <TouchableOpacity style={style.headerAddress}>
+          <TouchableOpacity style={style.headerAddress}
+          onPress={() => navigation.navigate('RestaurantType0')} >
             <Text style={style.addressType}>Trong Khuôn Viên Trường</Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>
@@ -317,6 +322,7 @@ export default function ({
           >
             {restaurant0.map((item: IRestaurant, index) => {
               return (
+                
                 <View key={index + 1}>
                   <ItemRestaurant item={item} />
                 </View>
@@ -324,7 +330,7 @@ export default function ({
             })}
           </ScrollView>
 
-          <TouchableOpacity style={style.headerAddress}>
+          <TouchableOpacity style={style.headerAddress} onPress={() => navigation.navigate('RestaurantType1')}>
             <Text style={style.addressType}>Cổng Đặng Thùy Trâm</Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>
@@ -344,7 +350,7 @@ export default function ({
               );
             })}
           </ScrollView>
-          <TouchableOpacity style={style.headerAddress}>
+          <TouchableOpacity style={style.headerAddress} onPress={() => navigation.navigate('RestaurantType2')}>
             <Text style={style.addressType}>Cổng Dương Quảng Hàm</Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>

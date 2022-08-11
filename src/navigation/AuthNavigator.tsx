@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import Login from '../screens/auth/Login'
+import { Login, SignUp } from '../screens/auth'
 // import { ConfirmCode, Login, SignUp } from 'screens/auth'
 import { AuthStackParamList, StackScreenProps } from '../types'
 import Navigator from './Navigator'
@@ -17,13 +17,13 @@ const screens: IStackScreen[] = [
       headerShown: false,
     },
   },
-  // {
-  //   name: 'SignUp',
-  //   component: SignUp,
-  //   options: {
-  //     headerShown: false,
-  //   },
-  // },
+  {
+    name: 'SignUp',
+    component: SignUp,
+    options: {
+      headerShown: false,
+    },
+  },
 ]
 
 export default function AuthNavigator() {

@@ -1,16 +1,25 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { cartApi } from "../../../api";
 import api from "../../../api/api";
+import { ICart, IOrder } from "../../../api/apiInterfaces";
 import { Button, Image, Text, TextInput } from "../../../components/common";
 import { ItemProduct } from "../../../components/Layout";
 import KeyboardAwareScrollView from "../../../components/Layout/KeyboardAwareScrollView";
 import { Colors, Icons, Layout } from "../../../constant";
 import { storage, toast } from "../../../helpers";
-import { RootStackParamList } from "../../../types";
+import { BASE_URL, RootStackParamList } from "../../../types";
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
 
@@ -21,15 +30,18 @@ export default function ({
   const { item } = route.params;
   const [amountProduct, setAmountProduct] = useState(0);
   const [showCart, setShowCart] = useState(false);
+  const [valueCart, setValueCart] = useState({});
+  const [checkCart, setCheckCart] = useState();
+  const [showModal, setShowModal] = useState(false);
   const goCart = () => {
-    navigation.navigate('Cart')
-  }
-  const addOrderCart = async (item: any) => {
+    navigation.navigate("Cart");
+  };
+  const addOrderCart = async (productId: any) => {
     try {
-      const amount = await storage.get("amount");
-      const response = await cartApi.postCart(item.id, amount);
       
-      getData();
+        const amount = await storage.get("amount");
+        const response = await cartApi.postCart(productId.id, amount);
+        getData();
     } catch (error) {
       console.log(error);
     }
@@ -41,16 +53,23 @@ export default function ({
     const getCart = async () => {
       try {
         const data = await cartApi.getAll();
-          setAmountProduct(data.data?.sumAmount);
-          if(amountProduct != 0){
-            setShowCart(true)
-          }
-      } catch (error) {
-        
-      }
-      
+        setAmountProduct(data.data?.sumAmount);
+        setShowCart(true);
+      } catch (error) {}
     };
+
     await getCart();
+    const dataCart = async () => {
+      const data = await cartApi.getAll();
+      if (data) {
+        setValueCart(
+          data.data.data.map((item: any) => {
+            setCheckCart(item.productId);
+          })
+        );
+      }
+    };
+    await dataCart();
   };
   const FooterCart = () => {
     return (
@@ -72,14 +91,18 @@ export default function ({
           <View
             style={{
               flexDirection: "row",
-              alignItems: 'center'
+              alignItems: "center",
             }}
           >
             <Icons.BigCart width={45} height={45} />
-            <Text style= {{
-              fontSize: 35,
-              fontWeight: '200'
-            }}>X{amountProduct}</Text>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "200",
+              }}
+            >
+              X{amountProduct}
+            </Text>
           </View>
           <TouchableOpacity
             style={{
@@ -112,7 +135,6 @@ export default function ({
         }}
       >
         <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: Layout.gap }}
         >
           <View
@@ -130,7 +152,7 @@ export default function ({
             >
               <Image
                 source={{
-                  uri: `http://192.168.1.2:8500/${item.banner}`,
+                  uri: `${BASE_URL}/${item.banner}`,
                 }}
                 style={{
                   width: "100%",
@@ -140,7 +162,10 @@ export default function ({
             </View>
 
             <Button
-              onPress={() => navigation.goBack()}
+              onPress={() => {
+                navigation.goBack();
+                storage.remove("amount");
+              }}
               style={{
                 borderRadius: 100,
                 height: 25,
@@ -315,7 +340,9 @@ export default function ({
         </KeyboardAwareScrollView>
       </ScrollView>
       {showCart == true ? (
-        <FooterCart />
+        <View>
+          <FooterCart />
+        </View>
       ) : (
         <View>
           <Text>''</Text>
@@ -361,5 +388,46 @@ const styles = StyleSheet.create({
   },
   dow: {
     transform: [{ rotate: "90deg" }],
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

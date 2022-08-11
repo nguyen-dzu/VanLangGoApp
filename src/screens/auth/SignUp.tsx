@@ -13,15 +13,15 @@ import axios from "axios";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { actions } from "../../reduxStore/slices";
 import { storage, toast } from "../../helpers";
-import { ILogin } from "../../api/apiInterfaces";
+import { ILogin, ISignUp } from "../../api/apiInterfaces";
 import { validation } from "../../configs/validationInput";
 import { useConfirmExitApp } from "../../hooks";
 import api from "../../api/api";
 import Social from "./Social";
-
+  
 export default function ({
   navigation,
-}: StackScreenProps<AuthStackParamList, "Login">) {
+}: StackScreenProps<AuthStackParamList, "SignUp">) {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -29,41 +29,54 @@ export default function ({
   const initialValues = {
     emailAddress: "",
     password: "",
+    fullName: "",
+    phoneNumber: "",
+    roleId: "c812fa79-de2f-11ec-8bb8-448a5b2c2d80",
   };
   const title = {
     emailAddress: "Email",
     password: "Nhập mật khẩu",
+    fullName: "Họ Và Tên",
+    phoneNumber: "Số điện thoại",
   };
   const validationSchema = Yup.object().shape({
     emailAddress: validation.string(title.emailAddress),
     password: validation.string(title.password),
+    fullName: validation.string(title.fullName),
+    phoneNumber: validation.string(title.phoneNumber),
   });
-  async function login(params: ILogin) {
+  async function SignUp(params: ISignUp) {
     setLoading(true);
     let loginParam = {
       emailAddress: params.emailAddress,
       password: params.password,
+      fullName: params.fullName,
+      phoneNumber: params.phoneNumber,
+      roleId: params.roleId,
     };
     try {
-      const data = await authApi.login(loginParam);
-      dispatch(actions.auth.login(data));
+      const data = await authApi.signUp(loginParam);
       setLoading(false);
-      toast.success("Đăng nhập thành công!");
+      toast.success("Đăng Ký Thành Công!");
+      if (data) {
+        navigation.replace("Login");
+      }
     } catch (error) {
       setLoading(false);
       toast.error(error);
     }
   }
-  const toSignUp = () => {
-    navigation.replace('SignUp')
+
+  const toLogin = () => {
+    navigation.replace('Login')
   }
   return (
     <SafeAreaView edges={["top", "bottom"]}>
       <View style={{ paddingHorizontal: 30 }}>
-        <Text style={styles.heading}>Đăng nhập</Text>
+        <Text style={styles.heading}>Đăng ký</Text>
         <Formik
           initialValues={initialValues}
-          onSubmit={login}
+          onSubmit={SignUp}
           validationSchema={validationSchema}
         >
           {({
@@ -101,16 +114,37 @@ export default function ({
                   icon="lock"
                   secureTextEntry={true}
                 />
+                <TextInput
+                  label="Họ Tên"
+                  onChangeText={handleChange("fullName")}
+                  onBlur={handleBlur("fullName")}
+                  value={values.fullName}
+                  placeholder="Nguyễn Văn A"
+                  error={errors.fullName}
+                  touched={touched.fullName}
+                  icon="user"
+                />
+                <TextInput
+                  label="Số Điện Thoại"
+                  onChangeText={handleChange("phoneNumber")}
+                  onBlur={handleBlur("phoneNumber")}
+                  value={values.phoneNumber}
+                  placeholder="+84 123123XXX"
+                  error={errors.phoneNumber}
+                  touched={touched.phoneNumber}
+                  icon="phone"
+                  secureTextEntry={false}
+                />
                 <Button
                   style={styles.buttonLogin}
                   onPress={handleSubmit as () => void}
                 >
-                  Đăng Nhập
+                  Đăng Ký
                 </Button>
 
                 <Social
-                  type="login"
-                  onPress={toSignUp}
+                  type="signUp"
+                  onPress={toLogin}
                 />
               </View>
             );

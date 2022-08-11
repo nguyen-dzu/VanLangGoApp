@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Colors, Icons } from "../../constant";
-import { INavigation, RootStackParamList } from "../../types";
+import { BASE_URL, INavigation, RootStackParamList } from "../../types";
 import { Image, Text } from "../common";
 import product from "../../api/product";
 import { IProduct } from "../../api/apiInterfaces";
@@ -14,25 +14,24 @@ import { storage } from "../../helpers";
 export const SLIDER_WIDTH = Dimensions.get("window").width;
 
 export default function ({ item }: { item: IProduct }) {
-  const [amountProduct, setAmountProduct] = useState(2);
-  const upAmount = async () => {
-    try {
-      setAmountProduct((count) => count + 1);
-      await storage.set("amount", amountProduct);
-      const amount2 = await storage.get('amount')
-      console.log(amount2)
-    } catch (error) {
-      console.log(error);
+  const [amountProduct, setAmountProduct] = useState(0);
+  const upAmount = async (amount: any) => {
+    const totalAmount = amount += 1
+    setAmountProduct(totalAmount);
+    await storage.set("amount", amountProduct + 1);
+   
+  };
+  const dowAmount = async (amount: any) => {
+    const totalAmount = amount -= 1
+    if (amountProduct > 1) {
+      setAmountProduct(totalAmount);
+      await storage.set("amount", amountProduct - 1);
     }
   };
-  const dowAmount = async () => {
-    try {
-      setAmountProduct((count) => Math.min(1, count + 1));
-      await storage.remove('amount')
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const getAmount = async() => {
+    const data = await storage.get('amount')
+    
+  }
   return (
     <View
       style={{
@@ -53,7 +52,7 @@ export default function ({ item }: { item: IProduct }) {
       >
         <View
           style={{
-            marginRight: "31%",
+            width: SLIDER_WIDTH * 0.59,
           }}
         >
           <Text
@@ -92,7 +91,7 @@ export default function ({ item }: { item: IProduct }) {
               borderRadius: 10,
             }}
             source={{
-              uri: `http://192.168.1.2:8500/${item.image}`,
+              uri: `${BASE_URL}/${item.image}`,
             }}
           />
         </View>
@@ -103,7 +102,7 @@ export default function ({ item }: { item: IProduct }) {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => upAmount()}>
+        <TouchableOpacity onPress={() => upAmount(amountProduct)}>
           <Icons.ArrowRight color={Colors.gray6} style={styles.up} />
         </TouchableOpacity>
 
@@ -112,9 +111,9 @@ export default function ({ item }: { item: IProduct }) {
             fontSize: 20,
           }}
         >
-          {amountProduct - 1}
+          {item.id ? amountProduct : '' }
         </Text>
-        <TouchableOpacity onPress={() => dowAmount()}>
+        <TouchableOpacity onPress={() => dowAmount(amountProduct)}>
           <Icons.ArrowRight color={Colors.gray6} style={styles.dow} />
         </TouchableOpacity>
       </View>

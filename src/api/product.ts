@@ -1,5 +1,5 @@
 import api from "./api";
-import { IProduct } from "./apiInterfaces";
+import { ICart, IProduct, IProductType } from "./apiInterfaces";
 import API_CONSTANTS from "./constrant";
 
 export default {
@@ -11,5 +11,8 @@ export default {
   },
   getProductType: (): any => {
     return api.get(API_CONSTANTS.PRODUCT.GET_PRODUCT_TYPE);
-  }
+  },
+  getProductTypeId: (typeId: string): any=> {
+    return api.get(API_CONSTANTS.PRODUCT.GET_PRODUCT_TYPE_ID(typeId))
+  } 
 };

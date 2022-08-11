@@ -5,10 +5,10 @@ import { storage } from '../helpers'
 import { authActions } from '../reduxStore/slices/auth'
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.2:8500',
+  baseURL: 'http://192.168.1.5:8500',
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', 
     'Cache-Control': 'no-cache',
     'Access-Control-Allow-Origin': '*',
   },
@@ -18,14 +18,14 @@ const api = axios.create({
 api.interceptors.request.use(async (config: AxiosRequestConfig) => {
   try {
     const token = await storage.get('token')
-    token && config.headers && (config.headers['Authorization'] = `Bearer ${token}`)
+    token && config.headers && (config.headers['Authorization'] = `Bearer ${token.data}`)
   } catch (error) { }
   return config
 })
 
 api.interceptors.response.use(
   (response: AxiosResponse<any>) => {
-    return response.data || response
+    return  response.data || response
   },
   err => {
     if (err.status == 401) {

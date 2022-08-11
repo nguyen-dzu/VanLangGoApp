@@ -1,11 +1,12 @@
 // AUTH
 
-import moment from "moment";
-
 // AUTH
 export interface ISignUp {
-  emailAddress: string;
-  password: string;
+  emailAddress: string,
+  password: string,
+  fullName: string,
+  phoneNumber: string,
+  roleId: string
 }
 export interface IRestaurant {
   name: String;
@@ -16,7 +17,7 @@ export interface IRestaurant {
   addressType: number;
   user: null;
   categories: null;
-  products: [IProduct,];
+  products: [IProduct];
   id: string;
   createdAt: string;
 }
@@ -39,11 +40,17 @@ export type IProduct = {
   id: string;
   createdAt: string;
 };
+export interface IProductType {
+  name: string;
+  image: string;
+  id: string;
+  product: IProduct
+};
 export type IOrder = {
-  address: string,
-  phoneNumber: string,
-  note: string
-}
+  address: string;
+  phoneNumber: string;
+  note: string;
+};
 export type ICart = {
   userId: string;
   productId: string;

@@ -1,5 +1,5 @@
 import api from "./api";
-import { ILogin } from "./apiInterfaces";
+import { ILogin, ISignUp } from "./apiInterfaces";
 import API_CONSTANTS from "./constrant";
 
 export default {
@@ -7,7 +7,7 @@ export default {
     return api.post(API_CONSTANTS.AUTH.LOGIN, params);
   },
 
-  // signUp: (params: ISignUp): any => {
-  //   return api.post(API_CONSTANTS.AUTH.SIGN_UP, params)
-  // },
+  signUp: (params: ISignUp): any => {
+    return api.post(API_CONSTANTS.AUTH.SIGN_UP, params)
+  },
 };

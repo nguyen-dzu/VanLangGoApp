@@ -3,7 +3,7 @@ import React from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { ICart, IRestaurant } from "../../api/apiInterfaces";
 import { Icons } from "../../constant";
-import { INavigation } from "../../types";
+import { BASE_URL, INavigation } from "../../types";
 import { Image, Text } from "../common";
 
 export default function ({
@@ -26,7 +26,7 @@ export default function ({
                 <Image
                   style={style.imageItem}
                   source={{
-                    uri: `http://192.168.1.2:8500/${item.banner}`,
+                    uri: `${BASE_URL}/${item.banner}`,
                   }}
                 />
               </View>
@@ -45,6 +45,7 @@ export default function ({
                       fontWeight: "300",
                       fontSize: 12,
                       color: "#999999",
+                      lineHeight: 15
                     }}
                   >
                     5,0 (999 +) . 1km
@@ -62,7 +63,7 @@ const style = StyleSheet.create({
   container: {
     marginVertical: 14,
     width: 120,
-    height: 140,
+    height: 160,
   },
   imageItem: {
     width: 105,
@@ -73,7 +74,7 @@ const style = StyleSheet.create({
   name: {
     fontWeight: "bold",
     fontSize: 15,
-    lineHeight: 10,
+    lineHeight: 15,
     paddingTop: 10,
   },
 });

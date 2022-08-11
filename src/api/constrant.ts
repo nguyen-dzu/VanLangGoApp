@@ -3,11 +3,13 @@ import { IOrder } from "./apiInterfaces"
 const API_CONSTANTS = {
   AUTH: {
     LOGIN: '/api/Users/Login',
+    SIGN_UP: '/api/Users'
   },
   PRODUCT: {
     GET_ALL: '/api/Products',
     GET_ADDRESS_TYPE: (addressType: number) => `/api/Products?AddressType=${addressType}`,
-    GET_PRODUCT_TYPE: '/api/ProductTypes'
+    GET_PRODUCT_TYPE: '/api/ProductTypes',
+    GET_PRODUCT_TYPE_ID: (typeId: string) =>  `/api/Products?ProductTypeId=${typeId}`
   },
   RESTAURNAT: {
     GET_ALL: '/api/Restaurants',
