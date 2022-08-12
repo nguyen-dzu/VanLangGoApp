@@ -68,7 +68,8 @@ export type IUser = {
   role: null;
   id: string;
   createdAt: string;
-};
+}
+
 // PAGINATION
 export type IPagination = {
   page: number;

@@ -71,109 +71,41 @@ export default function ({
     navigation.navigate("Home");
   }
   return (
-    <View style={{}}>
-      <KeyboardAwareScrollView>
-        <SafeAreaView
-          style={{
-            paddingVertical: 15,
-            marginHorizontal: 15,
-          }}
-        >
-          <View style={styles.containerHeader}>
-            <View>
-              <Image source={require("../../../assets/icons/carIcon.png")} />
-            </View>
-            <View
-              style={{
-                marginHorizontal: 20,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginRight: "33%",
-              }}
-            >
-              <View>
-                <Text
-                  style={{
-                    fontWeight: "400",
-                    fontSize: 18,
-                  }}
-                >
-                  Giao bởi sinh viên
-                </Text>
-                <Text style={styles.address}>
-                  Lầu 4.1, Tòa F Văn Lang Cơ Sở 3
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View
+    <View>
+      <KeyboardAwareScrollView nestedScrollEnabled={false}>
+          <SafeAreaView
             style={{
-              width: widthScreen * 0.9,
-              height: 0,
-              borderWidth: 1,
-              borderColor: "#C9C9C9",
-            }}
-          ></View>
-          <View
-            style={{
-              marginVertical: 15,
+              paddingVertical: 15,
+              marginHorizontal: 15,
             }}
           >
-            <Text
-              style={{
-                lineHeight: 40,
-                fontSize: 20,
-                fontWeight: "600",
-              }}
-            >
-              Đơn Hàng Của Bạn
-            </Text>
-            <ScrollView>
-              {listCart.map((item: any, index) => {
-                return (
-                  <View key={index + 1} style={{}}>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Text>X {item.amount}</Text>
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          width: "90%",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Text style={styles.textProduct}>
-                          {item.product.name}
-                        </Text>
-                        <Text style={styles.textProduct}>
-                          {item.product.price} VNĐ
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                );
-              })}
-            </ScrollView>
-
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text
+            <View style={styles.containerHeader}>
+              <View>
+                <Image source={require("../../../assets/icons/carIcon.png")} />
+              </View>
+              <View
                 style={{
-                  color: Colors.gray6,
-                  textDecorationLine: "underline",
-                  marginTop: 10,
-                  lineHeight: 60,
-                  fontSize: 16,
+                  marginHorizontal: 20,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginRight: "33%",
                 }}
               >
-                + Thêm Món
-              </Text>
-            </TouchableOpacity>
-
+                <View>
+                  <Text
+                    style={{
+                      fontWeight: "400",
+                      fontSize: 18,
+                    }}
+                  >
+                    Giao bởi sinh viên
+                  </Text>
+                  <Text style={styles.address}>
+                    Lầu 4.1, Tòa F Văn Lang Cơ Sở 3
+                  </Text>
+                </View>
+              </View>
+            </View>
             <View
               style={{
                 width: widthScreen * 0.9,
@@ -182,108 +114,176 @@ export default function ({
                 borderColor: "#C9C9C9",
               }}
             ></View>
-            <View>
-              <View
+            <View
+              style={{
+                marginVertical: 15,
+              }}
+            >
+              <Text
                 style={{
-                  marginTop: 10,
+                  lineHeight: 40,
+                  fontSize: 20,
+                  fontWeight: "600",
                 }}
               >
-                <View
+                Đơn Hàng Của Bạn
+              </Text>
+                {listCart.map((item: any, index) => {
+                  return (
+                    <View key={index + 1} style={{}}>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Text>X {item.amount}</Text>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            width: "90%",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Text style={styles.textProduct}>
+                            {item.product.name}
+                          </Text>
+                          <Text style={styles.textProduct}>
+                            {item.product.price} VNĐ
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
+                    color: Colors.gray6,
+                    textDecorationLine: "underline",
+                    lineHeight: 50,
+                    fontSize: 16,
                   }}
                 >
-                  <Text style={styles.containerHeader}>Tạm Tính</Text>
-                  <Text>25.000 VNĐ</Text>
-                </View>
+                  + Thêm Món
+                </Text>
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  width: widthScreen * 0.9,
+                  height: 0,
+                  borderWidth: 1,
+                  borderColor: "#C9C9C9",
+                }}
+              ></View>
+              <View>
                 <View
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
+                    marginTop: 10,
                   }}
                 >
-                  <Text style={styles.containerHeader}>Phí Áp Dụng</Text>
-                  <Text>5.000 VNĐ</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.containerHeader}>Tạm Tính</Text>
+                    <Text>25.000 VNĐ</Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={styles.containerHeader}>Phí Áp Dụng</Text>
+                    <Text>5.000 VNĐ</Text>
+                  </View>
                 </View>
               </View>
             </View>
+          </SafeAreaView>
+         
+        <Formik
+          initialValues={initialValues}
+          onSubmit={orderDetail}
+          validationSchema={validationSchema}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => {
+            return (
+              <View>
+                 <View>
+            <Text
+              style={{
+                marginHorizontal: 20,
+                fontSize: 20,
+                lineHeight: 30,
+                fontWeight: "600",
+                color: "#777777",
+                marginBottom: 15,
+              }}
+            >
+              Thông Tin Của Bạn
+            </Text>
           </View>
-        </SafeAreaView>
-        <View>
-          <Text
-            style={{
-              marginHorizontal: 20,
-              fontSize: 20,
-              lineHeight: 30,
-              fontWeight: "600",
-              color: "#777777",
-              marginBottom: 15,
-            }}
-          >
-            Thông Tin Của Bạn
-          </Text>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={orderDetail}
-            validationSchema={validationSchema}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => {
-              return (
-                <View>
-                  <View
+                <View
+                  style={{
+                    minHeight: heightScreen * 0.24,
+                    marginHorizontal: 15,
+                  }}
+                >
+                  <TextInput
+                    placeholder="Địa Chỉ Người Nhận"
+                    onChangeText={handleChange("address")}
+                    onBlur={handleBlur("address")}
+                    value={values.address}
+                    error={errors.address}
+                    touched={touched.address}
+                    icon="map"
+                  />
+                  <TextInput
+                    placeholder="Số Điện Thoại Người Nhận"
+                    onChangeText={handleChange("phoneNumber")}
+                    onBlur={handleBlur("phoneNumber")}
+                    value={values.phoneNumber}
+                    error={errors.phoneNumber}
+                    touched={touched.phoneNumber}
+                    icon="phone-call"
+                  />
+                  <TextInput
+                    multiline
+                    editable
+                    maxLength={100}
+                    placeholder="Ghi Chú Cho Cửa Hàng"
+                    onChangeText={handleChange("note")}
+                    onBlur={handleBlur("note")}
+                    value={values.note}
+                    error={errors.note}
+                    touched={touched.note}
                     style={{
-                      height: heightScreen * 0.351,
-                      marginHorizontal: 15,
+                      borderWidth: 0,
+                      width: widthScreen * 0.9,
+                      height: 60,
+                      backgroundColor: "#F8F8F8",
+                      color: Colors.gray6,
+                      borderRadius: 30,
                     }}
-                  >
-                    <TextInput
-                      placeholder="Địa Chỉ Người Nhận"
-                      onChangeText={handleChange("address")}
-                      onBlur={handleBlur("address")}
-                      value={values.address}
-                      error={errors.address}
-                      touched={touched.address}
-                      icon="map"
-                    />
-                    <TextInput
-                      placeholder="Số Điện Thoại Người Nhận"
-                      onChangeText={handleChange("phoneNumber")}
-                      onBlur={handleBlur("phoneNumber")}
-                      value={values.phoneNumber}
-                      error={errors.phoneNumber}
-                      touched={touched.phoneNumber}
-                      icon="phone-call"
-                    />
-                    <TextInput
-                      multiline
-                      editable
-                      maxLength={100}
-                      placeholder="Ghi Chú Cho Cửa Hàng"
-                      onChangeText={handleChange("note")}
-                      onBlur={handleBlur("note")}
-                      value={values.note}
-                      error={errors.note}
-                      touched={touched.note}
-                      style={{
-                        borderWidth: 0,
-                        width: widthScreen * 0.9,
-                        height: 60,
-                        backgroundColor: "#F8F8F8",
-                        color: Colors.gray6,
-                        borderRadius: 30,
-                      }}
-                      icon={"menu"}
-                    />
-                  </View>
-
+                    icon={"menu"}
+                  />
+                </View>
+                <View>
                   <View
                     style={{
                       backgroundColor: "#F7F7F7",
@@ -353,10 +353,10 @@ export default function ({
                     </View>
                   </View>
                 </View>
-              );
-            }}
-          </Formik>
-        </View>
+              </View>
+            );
+          }}
+        </Formik>
       </KeyboardAwareScrollView>
     </View>
   );
@@ -372,12 +372,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     alignItems: "center",
-    fontSize: 22,
-    fontWeight: "300",
+    fontSize: 17,
+    fontWeight: "500",
     lineHeight: 40,
   },
   textProduct: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "400",
     lineHeight: 30,
     color: "#777777",
