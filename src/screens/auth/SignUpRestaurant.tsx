@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 35,
   },
   buttonLogin: {
+    marginBottom: 10,
     backgroundColor: Colors.gray6,
   },
 });

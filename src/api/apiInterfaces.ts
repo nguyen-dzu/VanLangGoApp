@@ -24,6 +24,16 @@ export interface ISignUpShipper {
   phoneNumber: string
 }
 
+export interface IForgot {
+  emailAddress: string,
+}
+
+export interface IResetPassword{
+  emailAddress: string,
+  code: string,
+  password: string,
+  confirmPassword: string
+}
 
 export interface IRestaurant {
   name: String;

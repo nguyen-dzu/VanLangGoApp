@@ -16,7 +16,8 @@ export type StorageParamList = {
 export type AuthStackParamList = {
   Login: undefined
   SignUp: undefined
-  
+  ForgotPassword: undefined
+  ResetPassword: undefined
 
 }
 

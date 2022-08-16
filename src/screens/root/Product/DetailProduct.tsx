@@ -64,6 +64,7 @@ export default function DetailProduct({
             })}
           </Text>
         </View>
+        
       </SafeAreaView>
     </View>
   );

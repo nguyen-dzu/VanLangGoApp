@@ -3,9 +3,9 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, Text, TextInput } from "../../components/common";
+import { Button, Link, Text, TextInput } from "../../components/common";
 import KeyboardAwareScrollView from "../../components/Layout/KeyboardAwareScrollView";
-import { Colors, Layout } from "../../constant";
+import { Colors, Layout, Style } from "../../constant";
 import { AuthStackParamList } from "../../types";
 import * as Yup from "yup";
 import { authApi } from "../../api";
@@ -48,24 +48,25 @@ export default function ({
       const data = await authApi.login(loginParam);
       dispatch(actions.auth.login(data));
       setLoading(false);
-      if(data){
+      if (data) {
         toast.success("Đăng nhập thành công!");
-      }
-      else{
-        toast.error('Đăng Ký Không Thành Công')
+      } else {
+        toast.error("Đăng Ký Không Thành Công");
       }
     } catch (error) {
       setLoading(false);
       toast.error(error);
     }
-    
   }
   const toSignUp = () => {
-    navigation.replace('SignUp')
-  }
+    navigation.replace("SignUp");
+  };
+  const toForgot = () => {
+    navigation.navigate("ForgotPassword");
+  };
   return (
     <SafeAreaView edges={["top", "bottom"]}>
-      <View style={{ paddingHorizontal: 30 }}>
+      <KeyboardAwareScrollView style={{ paddingHorizontal: 30 }}>
         <Text style={styles.heading}>Đăng nhập</Text>
         <Formik
           initialValues={initialValues}
@@ -114,15 +115,20 @@ export default function ({
                   Đăng Nhập
                 </Button>
 
-                <Social
-                  type="login"
-                  onPress={toSignUp}
-                />
+                <Social type="login" onPress={toSignUp} />
+                <View style={[Style.row, { justifyContent: "center" }]}>
+                  <Link
+                    textStyle={{ fontWeight: "bold", color: Colors.gray6 }}
+                    onPress={toForgot}
+                  >
+                    Quên Mật Khẩu
+                  </Link>
+                </View>
               </View>
             );
           }}
         </Formik>
-      </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -136,9 +142,10 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     marginTop: 100,
     marginBottom: 35,
-    fontSize: 25
+    fontSize: 25,
   },
   buttonLogin: {
     backgroundColor: Colors.gray6,
+    marginBottom: 10
   },
 });

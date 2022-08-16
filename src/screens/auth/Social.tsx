@@ -1,25 +1,31 @@
-import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Link, Text } from '../../components/common'
-import { Colors, Style } from '../../constant'
+import React from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Link, Text } from "../../components/common";
+import { Colors, Style } from "../../constant";
 
 export default function ({
   type,
   onPress,
 }: {
-  type: 'login' | 'signUp'
-  onPress: () => void
+  type: "login"| "signUp" ;
+  onPress: () => void;
 }) {
   return (
-    <View style={{marginTop: 10}}>
-      <View style={[Style.row, { justifyContent: 'center', marginBottom: 35 }]}>
-        <Text>{type === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}</Text>
-        <Link textStyle={{ fontWeight: 'bold', color: Colors.gray6 }} onPress={onPress}>
-          {type === 'login' ? 'Đăng ký' : 'Đăng nhập'}
+    <View style={{}}>
+      <View style={[Style.row, { justifyContent: "center" }]}>
+        <Text>
+          {type === "login"? "Chưa có tài khoản?" : "Đã có tài khoản?"}
+        </Text>
+        <Link
+          textStyle={{ fontWeight: "bold", color: Colors.gray6 }}
+          onPress={onPress}
+        >
+          {type === "login" ? "Đăng ký" : "Đăng nhập"}
         </Link>
       </View>
+      
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -29,8 +35,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.gray6,
     ...Style.mb,
     ...Style.borderRadius,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
   socialIcon: {
@@ -38,8 +44,8 @@ const styles = StyleSheet.create({
   },
   socialText: {
     flex: 1,
-    textAlign: 'center',
-    fontFamily: 'bold',
-    color: '#7A7A7A',
+    textAlign: "center",
+    fontFamily: "bold",
+    color: "#7A7A7A",
   },
-})
+});

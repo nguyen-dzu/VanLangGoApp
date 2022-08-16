@@ -1,4 +1,4 @@
-import { IOrder } from "./apiInterfaces"
+import { IForgot, IOrder } from "./apiInterfaces"
 
 const API_CONSTANTS = {
   AUTH: {
@@ -7,7 +7,9 @@ const API_CONSTANTS = {
     SIGN_UP_RESTAURANT: '/api/RegisterRestaurants',
     SIGN_UP_SHIPPER: '/api/RegisterShippers',
     GET_INFOR: '/api/Users/Profile',
-    EDIT_PROFILE: ''
+    EDIT_PROFILE: '',
+    FORGOTPASSWORD: (email: IForgot) => `/api/Users/ForgotPassword?email=${email}`,
+    RESET_PASSWORD: `/api/Users/ResetPassword`
   },
   PRODUCT: {
     GET_ALL: '/api/Products',

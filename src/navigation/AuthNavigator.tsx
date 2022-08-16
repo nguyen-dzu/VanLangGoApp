@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Login, SignUp } from '../screens/auth'
+import ForgotPassword from '../screens/auth/ForgotPassword'
+import ResetPassword from '../screens/auth/ResetPassword'
 // import { ConfirmCode, Login, SignUp } from 'screens/auth'
 import { AuthStackParamList, StackScreenProps } from '../types'
 import Navigator from './Navigator'
@@ -20,6 +22,20 @@ const screens: IStackScreen[] = [
   {
     name: 'SignUp',
     component: SignUp,
+    options: {
+      headerShown: false,
+    },
+  },
+  {
+    name: 'ForgotPassword',
+    component: ForgotPassword,
+    options: {
+      headerShown: false,
+    },
+  },
+  {
+    name: 'ResetPassword',
+    component: ResetPassword,
     options: {
       headerShown: false,
     },

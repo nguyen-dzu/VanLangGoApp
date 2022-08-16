@@ -1,0 +1,122 @@
+import { StackScreenProps } from '@react-navigation/stack'
+import { Formik } from 'formik'
+import React, { useState } from 'react'
+import { SafeAreaView, StyleSheet, View } from 'react-native'
+import { Button, Text, TextInput } from '../../components/common'
+import KeyboardAwareScrollView from '../../components/Layout/KeyboardAwareScrollView'
+import { toast } from '../../helpers'
+import { useConfirmExitApp } from '../../hooks'
+import { AuthStackParamList } from '../../types'
+import * as Yup from "yup";
+import { validation } from '../../configs/validationInput'
+import { authApi } from "../../api";
+import { IForgot } from '../../api/apiInterfaces'
+import { Colors } from '../../constant'
+import Social from './Social'
+
+export default function ForgotPassword({
+    navigation,
+  }: StackScreenProps<AuthStackParamList, "ForgotPassword">) {
+  const [loading, setLoading] = useState(false);
+
+    useConfirmExitApp();
+    const initialValues = {
+      emailAddress: "",
+    };
+    const title = {
+      emailAddress: "Email",
+    };
+    const validationSchema = Yup.object().shape({
+      emailAddress: validation.emailAddress(title.emailAddress),
+    });
+    async function ForgotPass(params: IForgot) {
+      setLoading(true);
+      let loginParam = {
+        emailAddress: params.emailAddress,
+      };
+      try {
+        const data = await authApi.forgetPass(loginParam);
+        setLoading(false);
+        toast.success("vào mail của bạn để lấy mã đăng nhập nhé");
+        if (data) {
+          navigation.replace("ResetPassword");
+        }else{
+          toast.error('email không tồn tại')
+        }
+      } catch (error) {
+        setLoading(false);
+        toast.error(error);
+      }
+    }
+    const toLogin = () => {
+        navigation.replace('Login')
+      }
+  return (
+    <SafeAreaView>
+        <KeyboardAwareScrollView style={{ paddingHorizontal: 30 }}>
+        <Text style={styles.heading}>Đăng nhập</Text>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={ForgotPass}
+          validationSchema={validationSchema}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => {
+            return (
+              <View
+                style={{
+                  flexDirection: "column",
+                }}
+              >
+                <TextInput
+                  label="Email"
+                  onChangeText={handleChange("emailAddress")}
+                  onBlur={handleBlur("emailAddress")}
+                  value={values.emailAddress}
+                  placeholder="examble: abc@gmail.com"
+                  error={errors.emailAddress}
+                  touched={touched.emailAddress}
+                  icon="mail"
+                />
+                <Button
+                  style={styles.buttonLogin}
+                  onPress={handleSubmit as () => void}
+                >
+                  Gửi
+                </Button>
+
+                <Social
+                  type="login"
+                  onPress={toLogin}
+                />
+              </View>
+            );
+          }}
+        </Formik>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
+  )
+}
+
+const styles = StyleSheet.create({
+    heading: {
+      textAlign: "center",
+      fontWeight: "bold",
+      lineHeight: 30,
+      color: Colors.gray1,
+      textTransform: "uppercase",
+      marginTop: 100,
+      marginBottom: 35,
+      fontSize: 25
+    },
+    buttonLogin: {
+      backgroundColor: Colors.gray6,
+    },
+  });
+  
