@@ -137,6 +137,7 @@ export default function ({
                   touched={touched.phoneNumber}
                   icon="phone"
                   secureTextEntry={false}
+                  dataDetectorTypes= 'phoneNumber'
                 />
                 <Button
                   style={styles.buttonLogin}
