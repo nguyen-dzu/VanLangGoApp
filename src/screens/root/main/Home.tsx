@@ -20,7 +20,7 @@ import CarouselItem, {
 } from "../../../components/Layout/CarouselItem";
 import { Image, Text, TextInput } from "../../../components/common";
 import { ItemProduct, ItemRestaurant } from "../../../components/Layout";
-import { restaurantApi } from "../../../api";
+import { authApi, restaurantApi } from "../../../api";
 import { IRestaurant } from "../../../api/apiInterfaces";
 import { useDispatch } from "react-redux";
 import { actions } from "../../../reduxStore/slices";
@@ -77,12 +77,29 @@ export default function ({
         toast.error("có lỗi sảy ra");
       }
     };
+    const fetchProfile = async () => {
+      try {
+        const data: any = await authApi.getInfo();
+        dispatch(actions.auth.infor(data.data));
+      } catch (error) {
+        toast.error(error);
+      }
+    };
+    await fetchProfile();
     await getProduct();
     await getRestaurant0();
     await getRestaurant1();
     await getRestaurant2();
+    // return (
+    //   window.removeEventListener("click", goToSearch),
+    //   window.removeEventListener("click", goToAddress),
+    //   window.removeEventListener("click", goToNavInfor),
+    //   window.removeEventListener("click", goToNotification)
+    // );
   };
-
+  const goToSearch = () => {
+    navigation.navigate("Search");
+  };
   function RenderHeader() {
     return (
       <View style={style.detailLocaltion}>
@@ -136,7 +153,7 @@ export default function ({
   return (
     <SafeAreaView style={style.container}>
       <RenderHeader />
-      <TouchableOpacity
+      <View
         style={{
           paddingVertical: 10,
           backgroundColor: Colors.background,
@@ -152,8 +169,9 @@ export default function ({
             width: widthScreen * 0.9,
           }}
           icon={"search"}
+          onPressIn={goToSearch}
         />
-      </TouchableOpacity>
+      </View>
       <ScrollView>
         <View>
           <Carousel
@@ -210,50 +228,51 @@ export default function ({
             </View>
           </View>
         </TouchableOpacity>
-        <View style={{
-          flexDirection: 'row',
-          marginHorizontal: 10,
-          alignItems: 'center',
-
-        }}>
-        {productType.map((item: any, index) => {
-          return (
-            <View
-              style={{
-                marginTop: 12,
-              }}
-              key={index + 1}
-            >
-              <View style={style.containerIcon}>
-                <TouchableOpacity
+        <View
+          style={{
+            flexDirection: "row",
+            marginHorizontal: 10,
+            alignItems: "center",
+          }}
+        >
+          {productType.map((item: any, index) => {
+            return (
+              <View
                 style={{
-                  alignItems: 'center',
-                  width: widthScreen * 0.124,
+                  marginTop: 12,
                 }}
-                  onPress={() => navigation.navigate("ListProduct", {item})}
-                >
-                  <View style={{
-                    height: 60
-                  }}>
-                  <Image
-                  style = {{
-                    width: 50, 
-                    height: 50
-                  }}
-                    source={{
-                      uri: `${BASE_URL}/${item.image}`,
+                key={index + 1}
+              >
+                <View style={style.containerIcon}>
+                  <TouchableOpacity
+                    style={{
+                      alignItems: "center",
+                      width: widthScreen * 0.124,
                     }}
-                  />
-                  </View>
-                  <Text style={style.titleIcon}>{item.name}</Text>
-                </TouchableOpacity>
+                    onPress={() => navigation.navigate("ListProduct", { item })}
+                  >
+                    <View
+                      style={{
+                        height: 60,
+                      }}
+                    >
+                      <Image
+                        style={{
+                          width: 50,
+                          height: 50,
+                        }}
+                        source={{
+                          uri: `${BASE_URL}/${item.image}`,
+                        }}
+                      />
+                    </View>
+                    <Text style={style.titleIcon}>{item.name}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          );
-        })}
+            );
+          })}
         </View>
-
-      
 
         <View
           style={{
@@ -307,8 +326,10 @@ export default function ({
             marginHorizontal: 10,
           }}
         >
-          <TouchableOpacity style={style.headerAddress}
-          onPress={() => navigation.navigate('RestaurantType0')} >
+          <TouchableOpacity
+            style={style.headerAddress}
+            onPress={() => navigation.navigate("RestaurantType0")}
+          >
             <Text style={style.addressType}>Trong Khuôn Viên Trường</Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>
@@ -322,7 +343,6 @@ export default function ({
           >
             {restaurant0.map((item: IRestaurant, index) => {
               return (
-                
                 <View key={index + 1}>
                   <ItemRestaurant item={item} />
                 </View>
@@ -330,7 +350,10 @@ export default function ({
             })}
           </ScrollView>
 
-          <TouchableOpacity style={style.headerAddress} onPress={() => navigation.navigate('RestaurantType1')}>
+          <TouchableOpacity
+            style={style.headerAddress}
+            onPress={() => navigation.navigate("RestaurantType1")}
+          >
             <Text style={style.addressType}>Cổng Đặng Thùy Trâm</Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>
@@ -350,7 +373,10 @@ export default function ({
               );
             })}
           </ScrollView>
-          <TouchableOpacity style={style.headerAddress} onPress={() => navigation.navigate('RestaurantType2')}>
+          <TouchableOpacity
+            style={style.headerAddress}
+            onPress={() => navigation.navigate("RestaurantType2")}
+          >
             <Text style={style.addressType}>Cổng Dương Quảng Hàm</Text>
             <Icons.ArrowRight color={"#444444"} />
           </TouchableOpacity>

@@ -40,10 +40,10 @@ export default function ({
     phoneNumber: "Số điện thoại",
   };
   const validationSchema = Yup.object().shape({
-    emailAddress: validation.string(title.emailAddress),
-    password: validation.string(title.password),
-    fullName: validation.string(title.fullName),
-    phoneNumber: validation.string(title.phoneNumber),
+    emailAddress: validation.emailAddress(title.emailAddress),
+    password: validation.password(title.password),
+    fullName: validation.fullName(title.fullName),
+    phoneNumber: validation.phoneNumber(title.phoneNumber),
   });
   async function SignUp(params: ISignUp) {
     setLoading(true);
@@ -60,6 +60,8 @@ export default function ({
       toast.success("Đăng Ký Thành Công!");
       if (data) {
         navigation.replace("Login");
+      }else{
+        toast.error('Đăng Ký Không Thành Công')
       }
     } catch (error) {
       setLoading(false);
@@ -72,6 +74,7 @@ export default function ({
   }
   return (
     <SafeAreaView edges={["top", "bottom"]}>
+      <KeyboardAwareScrollView>
       <View style={{ paddingHorizontal: 30 }}>
         <Text style={styles.heading}>Đăng ký</Text>
         <Formik
@@ -151,6 +154,7 @@ export default function ({
           }}
         </Formik>
       </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -159,11 +163,12 @@ const styles = StyleSheet.create({
   heading: {
     textAlign: "center",
     fontWeight: "bold",
-    lineHeight: 21,
+    lineHeight: 30,
     color: Colors.gray1,
     textTransform: "uppercase",
     marginTop: 100,
     marginBottom: 35,
+    fontSize: 25
   },
   buttonLogin: {
     backgroundColor: Colors.gray6,

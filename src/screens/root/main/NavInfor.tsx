@@ -37,7 +37,7 @@ export default function ({
         marginTop: 8,
         alignItems: 'center'
     }}>
-        <TouchableOpacity style={{alignItems: 'center', marginBottom: 30}}>
+        <TouchableOpacity style={{alignItems: 'center', marginBottom: 30}} onPress={() => navigation.navigate('Profile')}>
           <Avatar source={require("../../../assets/images/banner3.jpg")} style={styles.avatarInfor} />
           <Text style= {styles.nameInfor}>Nguyễn Hoàng Vũ</Text>
         </TouchableOpacity>
@@ -47,7 +47,7 @@ export default function ({
             </Text>
             <Icons.ArrowRight color={Colors.black} style={{width: 20, height: 20, paddingRight: 40}} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerItem} onPress={() => navigation.navigate('SignUpShipper')}>
+        <TouchableOpacity style={styles.containerItem} onPress={() => navigation.navigate('SignUpRestaurant')}>
             <Text style={{paddingLeft: 13, fontSize: 20, fontWeight: '300'}}>
                 Đăng Ký Trở Thành Quán Ăn
             </Text>

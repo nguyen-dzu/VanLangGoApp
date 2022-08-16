@@ -38,10 +38,9 @@ export default function ({
   };
   const addOrderCart = async (productId: any) => {
     try {
-      
-        const amount = await storage.get("amount");
-        const response = await cartApi.postCart(productId.id, amount);
-        getData();
+      const amount = await storage.get("amount");
+      const response = await cartApi.postCart(productId.id, amount);
+      getData();
     } catch (error) {
       console.log(error);
     }
@@ -150,15 +149,21 @@ export default function ({
                 width: widthScreen,
               }}
             >
-              <Image
-                source={{
-                  uri: `${BASE_URL}/${item.banner}`,
-                }}
-                style={{
-                  width: "100%",
-                  height: 200,
-                }}
-              />
+              {item.banner ? (
+                <Image
+                  source={{
+                    uri: `${BASE_URL}/${item.banner} `,
+                  }}
+                  style={{
+                    width: "100%",
+                    height: 200,
+                  }}
+                />
+              ) : (
+                <Image
+                  source={require("../../../assets/images/bannerDef.png")}
+                />
+              )}
             </View>
 
             <Button

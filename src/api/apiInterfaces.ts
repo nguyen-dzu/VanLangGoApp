@@ -2,12 +2,29 @@
 
 // AUTH
 export interface ISignUp {
-  emailAddress: string,
-  password: string,
-  fullName: string,
-  phoneNumber: string,
-  roleId: string
+  emailAddress: string;
+  password: string;
+  fullName: string;
+  phoneNumber: string;
+  roleId: string;
 }
+
+export interface ISignUpRestaurant {
+  restaurantName: string;
+  address: string;
+  addressType: number;
+  emailAddress: string;
+  fullName: string;
+  phoneNumber: string;
+}
+
+export interface ISignUpShipper {
+  emailAddress: string,
+  fullName: string,
+  phoneNumber: string
+}
+
+
 export interface IRestaurant {
   name: String;
   address: String;
@@ -20,6 +37,7 @@ export interface IRestaurant {
   products: [IProduct];
   id: string;
   createdAt: string;
+  productType: IProductType
 }
 export interface ILogin {
   emailAddress: string;
@@ -44,12 +62,16 @@ export interface IProductType {
   name: string;
   image: string;
   id: string;
-  product: IProduct
-};
+  products: [IProduct];
+}
 export type IOrder = {
   address: string;
   phoneNumber: string;
   note: string;
+};
+export type IProfile = {
+  fullName: string;
+  phoneNumber: string;
 };
 export type ICart = {
   userId: string;
@@ -68,7 +90,7 @@ export type IUser = {
   role: null;
   id: string;
   createdAt: string;
-}
+};
 
 // PAGINATION
 export type IPagination = {

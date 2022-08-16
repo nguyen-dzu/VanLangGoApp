@@ -25,17 +25,20 @@ const { name, password, text } = defaultInput;
 
 export const validation = {
   address: (title: string) => Yup.string().required(text.empty(title)),
-  phone: (title: string) =>
-  Yup.string()
-    .matches(Regex.vietnamPhoneNumber, text.invalid(title))
-    .required(text.invalid(title)),
-  name: (title: string) =>
+  restaurantName: (title: string) => Yup.string().required(text.empty(title)),
+  addressType: (title: string) => Yup.string().required(text.empty(title)),
+
+  phoneNumber: (title: string) =>
+    Yup.string()
+      .matches(Regex.vietnamPhoneNumber, text.invalid(title))
+      .required(text.invalid(title)),
+  fullName: (title: string) =>
     Yup.string()
       .min(name.min, text.min(title, name.min))
       .max(name.max, text.max(title))
       .required(text.empty(title)),
 
-  email: (title: string) =>
+  emailAddress: (title: string) =>
     Yup.string().email(text.invalid(title)).required(text.empty(title)),
 
   password: (title: string) =>

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { actions } from '.'
 import { storage, string } from '../../helpers'
 
 type IState = {
@@ -6,6 +7,7 @@ type IState = {
   token: null | string
   isLoadResource: boolean
   isError: boolean
+  info: null | any
 }
 
 const initialState: IState = {
@@ -13,6 +15,7 @@ const initialState: IState = {
   isError: false,
   token: null,
   isLoadResource: false,
+  info: null
 }
 
 const slice = createSlice({
@@ -35,6 +38,9 @@ const slice = createSlice({
       state.isLoadResource = false
       storage.remove('token')
     },
+    infor: (state, action) => {
+      state.info = action.payload
+    }
   },
 })
 

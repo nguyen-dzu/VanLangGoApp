@@ -261,6 +261,7 @@ export default function ({
                     error={errors.phoneNumber}
                     touched={touched.phoneNumber}
                     icon="phone-call"
+                    keyboardType="number-pad"
                   />
                   <TextInput
                     multiline

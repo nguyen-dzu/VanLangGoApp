@@ -48,11 +48,17 @@ export default function ({
       const data = await authApi.login(loginParam);
       dispatch(actions.auth.login(data));
       setLoading(false);
-      toast.success("Đăng nhập thành công!");
+      if(data){
+        toast.success("Đăng nhập thành công!");
+      }
+      else{
+        toast.error('Đăng Ký Không Thành Công')
+      }
     } catch (error) {
       setLoading(false);
       toast.error(error);
     }
+    
   }
   const toSignUp = () => {
     navigation.replace('SignUp')
@@ -125,11 +131,12 @@ const styles = StyleSheet.create({
   heading: {
     textAlign: "center",
     fontWeight: "bold",
-    lineHeight: 21,
+    lineHeight: 30,
     color: Colors.gray1,
     textTransform: "uppercase",
     marginTop: 100,
     marginBottom: 35,
+    fontSize: 25
   },
   buttonLogin: {
     backgroundColor: Colors.gray6,

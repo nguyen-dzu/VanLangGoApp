@@ -10,6 +10,12 @@ import { Restaurant, RestaurantType0, RestaurantType1, RestaurantType2 } from '.
 import { RootStackParamList, StackScreenProps } from '../types'
 import Navigator from './Navigator'
 import Login from '../screens/auth/Login'
+import Profile from '../screens/profile/Profile'
+import SignUpShipper from '../screens/auth/SignUpShipper'
+import SignUpRestaurant from '../screens/auth/SignUpRestaurant'
+import EditProfile from '../screens/profile/EditProfile'
+import Search from '../screens/root/Search/Search'
+import DetailProduct from '../screens/root/Product/DetailProduct'
 
 interface IStackScreen extends StackScreenProps {
   name: keyof RootStackParamList
@@ -93,7 +99,47 @@ const screens: IStackScreen[] = [
       headerTitle: 'Cổng Dương Quảng Hàm'
     }
   },
-  
+  {
+    name: 'Profile',
+    component: Profile,
+    options:{
+      headerTitle: '',
+    }
+  },
+  {
+    name: 'EditProfile',
+    component: EditProfile,
+    options:{
+      headerTitle: '',
+    }
+  },
+   {
+    name: 'SignUpRestaurant',
+    component: SignUpRestaurant,
+    options:{
+      headerTitle: '',
+    }
+  }, {
+    name: 'SignUpShipper',
+    component: SignUpShipper,
+    options:{
+      headerTitle: '',
+    }
+  },
+  {
+    name: 'Search',
+    component: Search,
+    options:{
+      headerShown: false
+    }
+  },
+  {
+    name: 'DetailProduct',
+    component:DetailProduct,
+    options:{
+      headerShown: false
+    }
+  },
 ]
 
 export default function RootNavigator() {

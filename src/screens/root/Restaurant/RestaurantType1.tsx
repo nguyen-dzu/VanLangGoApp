@@ -6,7 +6,7 @@ import { IRestaurant } from "../../../api/apiInterfaces";
 import { Image, Text, TextInput } from "../../../components/common";
 import { Colors, Icons } from "../../../constant";
 import { toast } from "../../../helpers";
-import { RootStackParamList } from "../../../types";
+import { BASE_URL, RootStackParamList } from "../../../types";
 const widthScreen = Dimensions.get('window').width;
 
 export default function ({
@@ -81,7 +81,7 @@ export default function ({
                       borderRadius: 8,
                     }}
                     source={{
-                      uri: `http://192.168.1.16:8500/${item.banner}`,
+                      uri: `${BASE_URL}/${item.banner ? item.banner : ''}`,
                     }}
                   />
                 </View>

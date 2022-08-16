@@ -16,22 +16,20 @@ export const SLIDER_WIDTH = Dimensions.get("window").width;
 export default function ({ item }: { item: IProduct }) {
   const [amountProduct, setAmountProduct] = useState(0);
   const upAmount = async (amount: any) => {
-    const totalAmount = amount += 1
+    const totalAmount = (amount += 1);
     setAmountProduct(totalAmount);
     await storage.set("amount", amountProduct + 1);
-   
   };
   const dowAmount = async (amount: any) => {
-    const totalAmount = amount -= 1
+    const totalAmount = (amount -= 1);
     if (amountProduct > 1) {
       setAmountProduct(totalAmount);
       await storage.set("amount", amountProduct - 1);
     }
   };
-  const getAmount = async() => {
-    const data = await storage.get('amount')
-    
-  }
+  const getAmount = async () => {
+    const data = await storage.get("amount");
+  };
   return (
     <View
       style={{
@@ -59,7 +57,7 @@ export default function ({ item }: { item: IProduct }) {
             style={{
               marginVertical: 10,
               fontWeight: "600",
-              fontSize: 22,
+              fontSize: 20,
             }}
           >
             {item.name}
@@ -70,6 +68,8 @@ export default function ({ item }: { item: IProduct }) {
                 fontSize: 18,
                 fontWeight: "300",
               }}
+              ellipsizeMode="middle"
+              numberOfLines={1}
             >
               {item.description}
             </Text>
@@ -77,9 +77,15 @@ export default function ({ item }: { item: IProduct }) {
               style={{
                 fontSize: 18,
                 fontWeight: "300",
+                color: Colors.gray6,
               }}
             >
-              {item.price} VNĐ
+              {item.price
+                ? item.price.toLocaleString("vi", {
+                    style: "currency",
+                    currency: "VND",
+                  })
+                : item.price}
             </Text>
           </View>
         </View>
@@ -111,7 +117,7 @@ export default function ({ item }: { item: IProduct }) {
             fontSize: 20,
           }}
         >
-          {item.id ? amountProduct : '' }
+          {item.id ? amountProduct : ""}
         </Text>
         <TouchableOpacity onPress={() => dowAmount(amountProduct)}>
           <Icons.ArrowRight color={Colors.gray6} style={styles.dow} />

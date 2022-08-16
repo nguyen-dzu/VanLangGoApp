@@ -1,11 +1,20 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Dimensions, SafeAreaView, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { productApi } from "../../../api";
-import { Text } from "../../../components/common";
-import { ItemRestaurant } from "../../../components/Layout";
+import { IProduct, IRestaurant } from "../../../api/apiInterfaces";
+import { Image, Text, TextInput } from "../../../components/common";
+import { ItemProduct, ItemRestaurant } from "../../../components/Layout";
 import { Colors, Icons, Layout } from "../../../constant";
-import { RootStackParamList } from "../../../types";
+import { BASE_URL, RootStackParamList } from "../../../types";
+import ItemProductList from "./ItemProductList";
 const widthScreen = Dimensions.get("window").width;
 
 export default function ({
@@ -16,6 +25,7 @@ export default function ({
   const [listProduct, setListProduct] = useState([]);
   useEffect(() => {
     getData();
+    
   }, []);
   const getData = async () => {
     const fetchData = async () => {
@@ -24,6 +34,7 @@ export default function ({
     };
     await fetchData();
   };
+
   return (
     <SafeAreaView>
       <View
@@ -56,18 +67,42 @@ export default function ({
             {item.name}
           </Text>
         </View>
-        {listProduct.map((item: any, index) => {
-          {
-            item.productType.products.map((item: any, i: any) => {
-              return (
-                <View key={index + i + 1}>
-                  <ItemRestaurant item={item.restaurant} />
-                </View>
-              );
-            });
-          }
-        })}
       </View>
+      <TouchableOpacity
+        style={{
+          paddingVertical: 10,
+          backgroundColor: Colors.background,
+          paddingHorizontal: 5,
+          alignItems: "center",
+        }}
+      >
+        <TextInput
+          containerStyle={{ marginBottom: 0 }}
+          placeholder="Tìm kiếm Món Ăn, Quán Ăn ... "
+          style={{
+            borderRadius: 30,
+            width: widthScreen * 0.9,
+          }}
+          icon={"search"}
+        />
+      </TouchableOpacity>
+      <ScrollView>
+        {listProduct.map((item: IProduct, index) => {
+          return (
+            <View key={index++}>
+              <ItemProductList item={item} />
+            </View>
+          );
+        })}
+      </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  imageItem: {
+    width: 105,
+    height: 110,
+    borderRadius: 15,
+  },
+});

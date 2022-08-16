@@ -11,7 +11,7 @@ export default function ({
   onPress: () => void
 }) {
   return (
-    <View>
+    <View style={{marginTop: 10}}>
       <View style={[Style.row, { justifyContent: 'center', marginBottom: 35 }]}>
         <Text>{type === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}</Text>
         <Link textStyle={{ fontWeight: 'bold', color: Colors.gray6 }} onPress={onPress}>
