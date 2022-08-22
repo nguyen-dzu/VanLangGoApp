@@ -452,7 +452,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     height: 20,
     justifyContent: "space-between",
-    width: "100%",
+    width: "90%",
     alignContent: "center",
   },
   touchLocation: {

@@ -15,6 +15,7 @@ import { IProduct } from "../../../api/apiInterfaces";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RootStackParamList } from "../../../types";
 import { StackScreenProps } from "@react-navigation/stack";
+import Ionicons from "@expo/vector-icons/Ionicons";
 const widthScreen = Dimensions.get("window").width;
 export default function Search({
   navigation,
@@ -86,21 +87,22 @@ export default function Search({
           onChangeText={(text) => handelSearch(text)}
         />
       </View>
-      
-        <FlatList
-          data={listProduct}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => {
-            return (
+      <FlatList
+        data={listProduct}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => {
+          return (
+            <>
               <View>
                 <ItemProductList item={item} />
               </View>
-            );
-          }}
-          style={{
-            marginVertical: 20,
-          }}
-        />
+            </>
+          );
+        }}
+        style={{
+          marginVertical: 20,
+        }}
+      />
     </SafeAreaView>
   );
 }

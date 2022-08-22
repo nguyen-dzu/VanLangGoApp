@@ -397,7 +397,10 @@ export default function ({
                             color: Colors.black,
                           }}
                         >
-                          {totalPrice}
+                          {totalPrice.toLocaleString("vi", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
                         </Text>
                       </View>
                       <View style={{}}>

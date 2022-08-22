@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/stack'
 import { ICart, IProduct, IProductType, IRestaurant } from './api/apiInterfaces'
 import { ImageProps, ImageSourcePropType, TextStyle, TouchableOpacity } from 'react-native'
-export const BASE_URL = 'http://192.168.1.8:8500'
+export const BASE_URL = 'http://192.168.1.9:8500'
 export type StorageParamList = {
   token: undefined,
   amount: number

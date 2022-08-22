@@ -127,7 +127,7 @@ export default function ({
                 color: Colors.white,
               }}
             >
-              Thêm Vào Giỏ Hàng
+              Xem Giỏ Hàng
             </Text>
           </TouchableOpacity>
         </View>
