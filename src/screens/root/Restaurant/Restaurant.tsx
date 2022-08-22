@@ -37,11 +37,10 @@ export default function ({
   const [valueCart, setValueCart] = useState({});
   const [checkCart, setCheckCart] = useState();
   const { amount } = useAppSelector((state) => state.menu);
-  const [listProduct, setListProduct]: any = useState([])
-  const [rerenderProduct, setRerenderProduct]: any = useState([])
-  const [search, setSearch] = useState('')
-  setListProduct(item.products)
-  setRerenderProduct(item.products)
+  const [listProduct, setListProduct]: any = useState([]);
+  const [rerenderProduct, setRerenderProduct]: any = useState([]);
+  const [search, setSearch] = useState("");
+ 
   const goCart = () => {
     navigation.navigate("Cart");
   };
@@ -57,6 +56,8 @@ export default function ({
     }
   };
   useEffect(() => {
+    setListProduct(item.products);
+    setRerenderProduct(item.products);
     getData();
   }, []);
   const getData = async () => {
@@ -150,12 +151,13 @@ export default function ({
   return (
     <View>
       <ScrollView
+      
         style={{
           height: heightScreen * 0.89,
         }}
       >
         <KeyboardAwareScrollView
-          contentContainerStyle={{ paddingHorizontal: Layout.gap }}
+          contentContainerStyle={{ paddingHorizontal: 10 }}
         >
           <View
             style={{
@@ -343,12 +345,12 @@ export default function ({
               }}
               icon={"search"}
               value={search}
-          onChangeText={(text) => handelSearch(text)}
+              onChangeText={(text) => handelSearch(text)}
             />
           </View>
           <FlatList
             data={item.products}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item, index) => item.id + index + 1}
             renderItem={({ item }) => {
               return (
                 <View>

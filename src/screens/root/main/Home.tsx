@@ -11,9 +11,8 @@ import {
 import { BASE_URL, RootStackParamList } from "../../../types";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Colors, Icons, Layout } from "../../../constant";
-import { dataSrc } from "../../../components/Layout/srcBanner";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import CarouselItem, {
   SLIDER_WIDTH,
   ITEM_WIDTH,
@@ -42,6 +41,7 @@ export default function ({
   const [restaurant1, setRestaurant1] = useState([]);
   const [restaurant2, setRestaurant2] = useState([]);
   const [productType, setProductType] = useState([]);
+  const [banner, setBannder] = useState([]);
   const { listOrder } = useAppSelector((state) => state.menu);
 
   useEffect(() => {
@@ -72,6 +72,14 @@ export default function ({
         toast.error("có lỗi sảy ra");
       }
     };
+    const getBanner = async () => {
+      try {
+        const data = await restaurantApi.getBanner();
+        setBannder(data.data.pagedData);
+      } catch (error) {
+        toast.error("có lỗi sảy ra");
+      }
+    };
     const getProduct = async () => {
       try {
         const data = await product.getProductType();
@@ -93,6 +101,7 @@ export default function ({
     await getRestaurant0();
     await getRestaurant1();
     await getRestaurant2();
+    await getBanner();
     // return (
     //   window.removeEventListener("click", goToSearch),
     //   window.removeEventListener("click", goToAddress),
@@ -103,6 +112,7 @@ export default function ({
   const goToSearch = () => {
     navigation.navigate("Search");
   };
+
   function RenderHeader() {
     return (
       <View style={style.detailLocaltion}>
@@ -179,7 +189,7 @@ export default function ({
         <View>
           <Carousel
             ref={isCarousel}
-            data={dataSrc}
+            data={banner}
             renderItem={CarouselItem}
             sliderWidth={SLIDER_WIDTH}
             itemWidth={ITEM_WIDTH}
@@ -409,9 +419,9 @@ export default function ({
             borderRadius: 50,
             position: "absolute",
             bottom: 60,
-            right: 10
+            right: 10,
           }}
-          onPress={() => navigation.navigate('Order')}
+          onPress={() => navigation.navigate("Order")}
         >
           <Icons.BigCart color={Colors.tertiary} />
           <View
@@ -420,8 +430,8 @@ export default function ({
               height: 10,
               backgroundColor: Colors.gray6,
               borderRadius: 30,
-              position: 'absolute',
-              top: 0
+              position: "absolute",
+              top: 0,
             }}
           ></View>
         </TouchableOpacity>
@@ -496,4 +506,5 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+ 
 });

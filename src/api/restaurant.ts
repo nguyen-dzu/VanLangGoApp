@@ -11,5 +11,8 @@ export default {
   },
   getById: (id: string): any => {
     return api.get(API_CONSTANTS.RESTAURNAT.GET_BY_ID(id))
+  },
+  getBanner: (): any => {
+    return api.get(API_CONSTANTS.RESTAURNAT.GETBANNER)
   }
 };

@@ -19,7 +19,8 @@ const API_CONSTANTS = {
   RESTAURNAT: {
     GET_ALL: '/api/Restaurants',
     GET_ADDRESS_TYPE: (addressType: number) => `/api/Restaurants?AddressType=${addressType}`,
-    GET_BY_ID: (id: string) => `/api/Restaurants/${id}`
+    GET_BY_ID: (id: string) => `/api/Restaurants/${id}`,
+    GETBANNER: `/api/Restaurants?PageSize=5&Current=1`
   },
   CART: {
     GET_ALL : '/api/Carts',
