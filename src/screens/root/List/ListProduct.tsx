@@ -2,6 +2,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
 import {
   Dimensions,
+  FlatList,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -23,18 +24,34 @@ export default function ({
 }: StackScreenProps<RootStackParamList, "ListProduct">) {
   const { item } = route.params;
   const [listProduct, setListProduct] = useState([]);
+  const [search, setSearch] = useState("");
+  const [renderItem, setRenderItem] = useState([]);
+
   useEffect(() => {
     getData();
-    
   }, []);
   const getData = async () => {
     const fetchData = async () => {
       const data = await productApi.getProductTypeId(item.id);
       setListProduct(data.data.pagedData);
+      setRenderItem(data.data.pagedData)
     };
     await fetchData();
   };
-
+  const handelSearch = (text: string) => {
+    if (text) {
+      const newData = renderItem.filter((item: any) => {
+        const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setListProduct(newData);
+      setSearch(text);
+    } else {
+      setListProduct(renderItem);
+      setSearch(text);
+    }
+  };
   return (
     <SafeAreaView>
       <View
@@ -78,23 +95,27 @@ export default function ({
       >
         <TextInput
           containerStyle={{ marginBottom: 0 }}
-          placeholder="Tìm kiếm Món Ăn, Quán Ăn ... "
+          placeholder="Tìm kiếm Món Ăn ... "
           style={{
             borderRadius: 30,
             width: widthScreen * 0.9,
           }}
           icon={"search"}
+          value={search}
+          onChangeText={(text) => handelSearch(text)}
         />
       </TouchableOpacity>
-      <ScrollView>
-        {listProduct.map((item: IProduct, index) => {
+      <FlatList
+        data={listProduct}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => {
           return (
-            <View key={index++}>
+            <View>
               <ItemProductList item={item} />
             </View>
           );
-        })}
-      </ScrollView>
+        }}
+      />
     </SafeAreaView>
   );
 }

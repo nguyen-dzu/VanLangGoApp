@@ -36,7 +36,9 @@ export default function Profile({
           alignItems: "center",
         }}
       >
-        <View>
+        <View style={{
+          alignItems: 'center'
+        }}>
           {info.avatar ? (
             <Avatar
               source={{

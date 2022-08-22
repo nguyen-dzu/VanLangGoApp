@@ -9,4 +9,7 @@ export default {
   getAddressType: (addressType: number): any => {
     return api.get(API_CONSTANTS.RESTAURNAT.GET_ADDRESS_TYPE(addressType));
   },
+  getById: (id: string): any => {
+    return api.get(API_CONSTANTS.RESTAURNAT.GET_BY_ID(id))
+  }
 };

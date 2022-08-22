@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Dimensions,
+  FlatList,
   Modal,
   Pressable,
   ScrollView,
@@ -19,6 +20,8 @@ import { ItemProduct } from "../../../components/Layout";
 import KeyboardAwareScrollView from "../../../components/Layout/KeyboardAwareScrollView";
 import { Colors, Icons, Layout } from "../../../constant";
 import { storage, toast } from "../../../helpers";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux";
+import { actions } from "../../../reduxStore/slices";
 import { BASE_URL, RootStackParamList } from "../../../types";
 const widthScreen = Dimensions.get("window").width;
 const heightScreen = Dimensions.get("window").height;
@@ -28,18 +31,26 @@ export default function ({
   route,
 }: StackScreenProps<RootStackParamList, "Restaurant">) {
   const { item } = route.params;
+  const dispatch = useAppDispatch();
   const [amountProduct, setAmountProduct] = useState(0);
   const [showCart, setShowCart] = useState(false);
   const [valueCart, setValueCart] = useState({});
   const [checkCart, setCheckCart] = useState();
-  const [showModal, setShowModal] = useState(false);
+  const { amount } = useAppSelector((state) => state.menu);
+  const [listProduct, setListProduct]: any = useState([])
+  const [rerenderProduct, setRerenderProduct]: any = useState([])
+  const [search, setSearch] = useState('')
+  setListProduct(item.products)
+  setRerenderProduct(item.products)
   const goCart = () => {
     navigation.navigate("Cart");
   };
   const addOrderCart = async (productId: any) => {
     try {
-      const amount = await storage.get("amount");
       const response = await cartApi.postCart(productId.id, amount);
+      if (response) {
+        toast.success("Thêm Thành Công");
+      }
       getData();
     } catch (error) {
       console.log(error);
@@ -54,21 +65,17 @@ export default function ({
         const data = await cartApi.getAll();
         setAmountProduct(data.data?.sumAmount);
         setShowCart(true);
+        if (data) {
+          setValueCart(
+            data.data.data.map((item: any) => {
+              setCheckCart(item.productId);
+            })
+          );
+        }
       } catch (error) {}
     };
 
     await getCart();
-    const dataCart = async () => {
-      const data = await cartApi.getAll();
-      if (data) {
-        setValueCart(
-          data.data.data.map((item: any) => {
-            setCheckCart(item.productId);
-          })
-        );
-      }
-    };
-    await dataCart();
   };
   const FooterCart = () => {
     return (
@@ -126,6 +133,20 @@ export default function ({
       </View>
     );
   };
+  const handelSearch = (text: string) => {
+    if (text) {
+      const newData = rerenderProduct.filter((item: any) => {
+        const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setListProduct(newData);
+      setSearch(text);
+    } else {
+      setListProduct(rerenderProduct);
+      setSearch(text);
+    }
+  };
   return (
     <View>
       <ScrollView
@@ -152,15 +173,18 @@ export default function ({
               {item.banner ? (
                 <Image
                   source={{
-                    uri: `${BASE_URL}/${item.banner} `,
+                    uri: `${BASE_URL}/${item.banner}`,
                   }}
                   style={{
                     width: "100%",
-                    height: 200,
+                    height: 220,
                   }}
                 />
               ) : (
                 <Image
+                  style={{
+                    height: 200,
+                  }}
                   source={require("../../../assets/images/bannerDef.png")}
                 />
               )}
@@ -318,30 +342,36 @@ export default function ({
                 backgroundColor: "#F8F8F8",
               }}
               icon={"search"}
+              value={search}
+          onChangeText={(text) => handelSearch(text)}
             />
           </View>
-          {item.products.map((item, index) => {
-            return (
-              <View key={index + 1}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <TouchableOpacity
+          <FlatList
+            data={item.products}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <View
                     style={{
-                      marginRight: 5,
+                      flexDirection: "row",
+                      alignItems: "center",
                     }}
-                    onPress={() => addOrderCart(item)}
                   >
-                    <Icons.Add />
-                  </TouchableOpacity>
-                  <ItemProduct item={item} />
+                    <TouchableOpacity
+                      style={{
+                        marginRight: 5,
+                      }}
+                      onPress={() => addOrderCart(item)}
+                    >
+                      <Icons.Add />
+                    </TouchableOpacity>
+                    <ItemProduct item={item} />
+                  </View>
                 </View>
-              </View>
-            );
-          })}
+              );
+            }}
+          />
         </KeyboardAwareScrollView>
       </ScrollView>
       {showCart == true ? (

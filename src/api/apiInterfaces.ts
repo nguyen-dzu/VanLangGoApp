@@ -19,20 +19,25 @@ export interface ISignUpRestaurant {
 }
 
 export interface ISignUpShipper {
-  emailAddress: string,
-  fullName: string,
-  phoneNumber: string
+  emailAddress: string;
+  fullName: string;
+  phoneNumber: string;
 }
 
 export interface IForgot {
-  emailAddress: string,
+  emailAddress: string;
 }
 
-export interface IResetPassword{
-  emailAddress: string,
-  code: string,
-  password: string,
-  confirmPassword: string
+export interface IResetPassword {
+  emailAddress: string;
+  code: string;
+  password: string;
+  passwordConfirm: string;
+}
+export interface IProfile {
+  FullName: string;
+  PhoneNumber: string;
+  Avatar: "";
 }
 
 export interface IRestaurant {
@@ -47,7 +52,7 @@ export interface IRestaurant {
   products: [IProduct];
   id: string;
   createdAt: string;
-  productType: IProductType
+  productType: IProductType;
 }
 export interface ILogin {
   emailAddress: string;
@@ -67,6 +72,7 @@ export type IProduct = {
   restaurantId: string;
   id: string;
   createdAt: string;
+  restaurant: [IRestaurant];
 };
 export interface IProductType {
   name: string;
@@ -79,10 +85,7 @@ export type IOrder = {
   phoneNumber: string;
   note: string;
 };
-export type IProfile = {
-  fullName: string;
-  phoneNumber: string;
-};
+
 export type ICart = {
   userId: string;
   productId: string;

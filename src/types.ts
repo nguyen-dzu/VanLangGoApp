@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/stack'
 import { ICart, IProduct, IProductType, IRestaurant } from './api/apiInterfaces'
 import { ImageProps, ImageSourcePropType, TextStyle, TouchableOpacity } from 'react-native'
-export const BASE_URL = 'http://192.168.1.6:8500'
+export const BASE_URL = 'http://192.168.1.8:8500'
 export type StorageParamList = {
   token: undefined,
   amount: number
@@ -43,6 +43,7 @@ export type RootStackParamList = AuthStackParamList & {
   EditProfile: undefined
   Search: undefined
   DetailProduct: {item: IProduct}
+  ImagesPicker: { onConfirm: (images: string[]) => void }
 }
 
 

@@ -75,7 +75,7 @@ export default function Search({
         </TouchableOpacity>
         <TextInput
           containerStyle={{ marginBottom: 0 }}
-          placeholder="Tìm kiếm Món Ăn, Quán Ăn ... "
+          placeholder="Tìm kiếm Món Ăn ... "
           style={{
             borderRadius: 30,
             width: widthScreen * 0.8,

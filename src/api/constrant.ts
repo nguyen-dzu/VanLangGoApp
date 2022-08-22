@@ -1,5 +1,4 @@
 import { IForgot, IOrder } from "./apiInterfaces"
-
 const API_CONSTANTS = {
   AUTH: {
     LOGIN: '/api/Users/Login',
@@ -7,8 +6,8 @@ const API_CONSTANTS = {
     SIGN_UP_RESTAURANT: '/api/RegisterRestaurants',
     SIGN_UP_SHIPPER: '/api/RegisterShippers',
     GET_INFOR: '/api/Users/Profile',
-    EDIT_PROFILE: '',
-    FORGOTPASSWORD: (email: IForgot) => `/api/Users/ForgotPassword?email=${email}`,
+    EDIT_PROFILE: '/api/Users/Profile',
+    FORGOTPASSWORD: (email: IForgot) => `/api/Users/ForgotPassword?email=${email.emailAddress}`,
     RESET_PASSWORD: `/api/Users/ResetPassword`
   },
   PRODUCT: {
@@ -19,7 +18,8 @@ const API_CONSTANTS = {
   },
   RESTAURNAT: {
     GET_ALL: '/api/Restaurants',
-    GET_ADDRESS_TYPE: (addressType: number) => `/api/Restaurants?AddressType=${addressType}`
+    GET_ADDRESS_TYPE: (addressType: number) => `/api/Restaurants?AddressType=${addressType}`,
+    GET_BY_ID: (id: string) => `/api/Restaurants/${id}`
   },
   CART: {
     GET_ALL : '/api/Carts',
@@ -30,7 +30,7 @@ const API_CONSTANTS = {
   },
   ORDER: {
     GET: (orderId: string) => `/api/Orders?orderId=${orderId}`,
-    POST_ORDER: `/api/Orders`
+    POST_ORDER: `/api/Orders`,
   }
 }
 

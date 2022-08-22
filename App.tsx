@@ -5,6 +5,7 @@ import Toast, { BaseToast, BaseToastProps, ToastConfig } from 'react-native-toas
 import { Provider as ReduxProvider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import store, {persistor} from './src/reduxStore/store'
+import { useAppSelector } from './src/hooks/useRedux'
 
 const toastConfigParamDefault: BaseToastProps = {
   text2Style: {
@@ -44,7 +45,6 @@ const toastConfig: ToastConfig = {
 }
 
 export default function App() {
-
   return (
       <ReduxProvider store={store}>
         <PersistGate persistor={persistor}>

@@ -11,6 +11,7 @@ export default function ({
 }: {
   item: IRestaurant,
 }) {
+  
   const navigation: INavigation = useNavigation();
   const goRestaurant = () =>{
     navigation.navigate('Restaurant', {

@@ -11,24 +11,27 @@ import { IProduct } from "../../api/apiInterfaces";
 import { cartApi } from "../../api";
 import { actions } from "../../reduxStore/slices";
 import { storage } from "../../helpers";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
 export const SLIDER_WIDTH = Dimensions.get("window").width;
 
 export default function ({ item }: { item: IProduct }) {
-  const [amountProduct, setAmountProduct] = useState(0);
-  const upAmount = async (amount: any) => {
-    const totalAmount = (amount += 1);
-    setAmountProduct(totalAmount);
-    await storage.set("amount", amountProduct + 1);
-  };
-  const dowAmount = async (amount: any) => {
-    const totalAmount = (amount -= 1);
-    if (amountProduct > 1) {
-      setAmountProduct(totalAmount);
-      await storage.set("amount", amountProduct - 1);
+  const dispatch = useAppDispatch();
+  const [amount, setamount] = useState(0);
+  const upAmount = () => {
+    const tamp = item.id;
+    if (item.id === tamp) {
+      setamount((count) => (count += 1));
+      dispatch(actions.menu.setAmount(amount + 1));
     }
   };
-  const getAmount = async () => {
-    const data = await storage.get("amount");
+  const dowAmount = async () => {
+    const tamp = item.id;
+    if (item.id === tamp) {
+      if (amount > 0) {
+        setamount((count) => (count - 1));
+        dispatch(actions.menu.setAmount(amount - 1));
+      }
+    }
   };
   return (
     <View
@@ -108,7 +111,7 @@ export default function ({ item }: { item: IProduct }) {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => upAmount(amountProduct)}>
+        <TouchableOpacity onPress={() => upAmount()}>
           <Icons.ArrowRight color={Colors.gray6} style={styles.up} />
         </TouchableOpacity>
 
@@ -117,9 +120,9 @@ export default function ({ item }: { item: IProduct }) {
             fontSize: 20,
           }}
         >
-          {item.id ? amountProduct : ""}
+          {amount}
         </Text>
-        <TouchableOpacity onPress={() => dowAmount(amountProduct)}>
+        <TouchableOpacity onPress={() => dowAmount()}>
           <Icons.ArrowRight color={Colors.gray6} style={styles.dow} />
         </TouchableOpacity>
       </View>

@@ -70,7 +70,7 @@ export default function ({
   }
 
   const toLogin = () => {
-    navigation.replace('Login')
+    navigation.replace("Login")
   }
   return (
     <SafeAreaView edges={["top", "bottom"]}>
@@ -137,7 +137,7 @@ export default function ({
                   touched={touched.phoneNumber}
                   icon="phone"
                   secureTextEntry={false}
-                  dataDetectorTypes= 'phoneNumber'
+                  keyboardType= 'number-pad'
                 />
                 <Button
                   style={styles.buttonLogin}

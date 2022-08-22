@@ -113,9 +113,9 @@ export default function ({
                   value={values.phoneNumber}
                   error={errors.phoneNumber}
                   touched={touched.phoneNumber}
-                  placeholder="phoneNumber"
                   icon="phone"
-                  secureTextEntry={true}
+                  keyboardType= 'number-pad'
+                  secureTextEntry = {false}
                 />
                 <Button
                   style={styles.buttonLogin}

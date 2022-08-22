@@ -1,5 +1,5 @@
 import api from "./api";
-import { IForgot, ILogin, IResetPassword, ISignUp, ISignUpRestaurant, ISignUpShipper } from "./apiInterfaces";
+import { IForgot, ILogin, IProfile, IResetPassword, ISignUp, ISignUpRestaurant, ISignUpShipper } from "./apiInterfaces";
 import API_CONSTANTS from "./constrant";
 
 export default {
@@ -24,5 +24,8 @@ export default {
   },
   resetPass: (params: IResetPassword) => {
     return api.post(API_CONSTANTS.AUTH.RESET_PASSWORD, params)
+  },
+  editProfile: (params: any) => {
+    return api.put(API_CONSTANTS.AUTH.EDIT_PROFILE, params)
   }
-};
+}; 

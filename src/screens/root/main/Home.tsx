@@ -13,6 +13,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { Colors, Icons, Layout } from "../../../constant";
 import { dataSrc } from "../../../components/Layout/srcBanner";
 import Carousel, { Pagination } from "react-native-snap-carousel";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import CarouselItem, {
   SLIDER_WIDTH,
   ITEM_WIDTH,
@@ -22,17 +23,17 @@ import { Image, Text, TextInput } from "../../../components/common";
 import { ItemProduct, ItemRestaurant } from "../../../components/Layout";
 import { authApi, restaurantApi } from "../../../api";
 import { IRestaurant } from "../../../api/apiInterfaces";
-import { useDispatch } from "react-redux";
 import { actions } from "../../../reduxStore/slices";
 import { toast } from "../../../helpers";
 import product from "../../../api/product";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux";
 const widthScreen = Dimensions.get("window").width;
 const widthContainer = Math.round(SLIDER_WIDTH * 0.8);
 export default function ({
   navigation,
 }: StackScreenProps<RootStackParamList, "Home">) {
   const isCarousel = useRef(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [index, setIndex] = useState(0);
   const goToNavInfor = () => navigation.navigate("NavInfor");
   const goToNotification = () => navigation.navigate("Notification");
@@ -41,6 +42,8 @@ export default function ({
   const [restaurant1, setRestaurant1] = useState([]);
   const [restaurant2, setRestaurant2] = useState([]);
   const [productType, setProductType] = useState([]);
+  const { listOrder } = useAppSelector((state) => state.menu);
+
   useEffect(() => {
     getData();
   }, []);
@@ -398,6 +401,31 @@ export default function ({
           </ScrollView>
         </View>
       </ScrollView>
+      {listOrder ? (
+        <TouchableOpacity
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: 50,
+            position: "absolute",
+            bottom: 60,
+            right: 10
+          }}
+          onPress={() => navigation.navigate('Order')}
+        >
+          <Icons.BigCart color={Colors.tertiary} />
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: Colors.gray6,
+              borderRadius: 30,
+              position: 'absolute',
+              top: 0
+            }}
+          ></View>
+        </TouchableOpacity>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -414,7 +442,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     height: 20,
     justifyContent: "space-between",
-    width: "90%",
+    width: "100%",
     alignContent: "center",
   },
   touchLocation: {

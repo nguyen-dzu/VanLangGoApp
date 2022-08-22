@@ -9,4 +9,7 @@ export default {
   postOrder: (orderParam: IOrder): any => {
     return api.post(API_CONSTANTS.ORDER.POST_ORDER,orderParam);
   },
+  putOrder: (orderParam: IOrder) => {
+    return api.put(API_CONSTANTS.ORDER.POST_ORDER,orderParam);
+  }
 };

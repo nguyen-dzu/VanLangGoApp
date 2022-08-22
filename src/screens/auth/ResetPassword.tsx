@@ -7,7 +7,7 @@ import { validation } from "../../configs/validationInput";
 import { toast } from "../../helpers";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import KeyboardAwareScrollView from "../../components/Layout/KeyboardAwareScrollView";
-import { Button, Text, TextInput } from "../../components/common";
+import { Button, Link, Text, TextInput } from "../../components/common";
 import { Formik } from "formik";
 import Social from "./Social";
 import { Colors } from "../../constant";
@@ -24,19 +24,19 @@ export default function ResetPassword({
     emailAddress: "",
     code: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirm: "",
   };
   const title = {
     emailAddress: "Email",
     code: "Mã",
     password: "Mật Khẩu",
-    confirmPassword: "Nhập Lại Mật Khẩu",
+    passwordConfirm: "Nhập Lại Mật Khẩu",
   };
   const validationSchema = Yup.object().shape({
     emailAddress: validation.emailAddress(title.emailAddress),
     code: validation.string(title.code),
     password: validation.password(title.password),
-    confirmPassword: validation.password_confirmation(title.confirmPassword),
+    passwordConfirm: validation.password_confirmation(title.passwordConfirm),
   });
   async function ForgotPass(params: IResetPassword) {
     setLoading(true);
@@ -44,12 +44,13 @@ export default function ResetPassword({
       emailAddress: params.emailAddress,
       code: params.code,
       password: params.password,
-      confirmPassword: params.confirmPassword,
+      passwordConfirm: params.passwordConfirm,
     };
+    console.log(loginParam);
     try {
-      const data = await authApi.forgetPass(loginParam);
+      const data = await authApi.resetPass(loginParam);
       setLoading(false);
-      toast.success("vào mail của bạn để lấy mã đăng nhập nhé");
+      toast.success("Thay Đổi Mật Khẩu Thành Công");
       if (data) {
         navigation.replace("Login");
       } else {
@@ -57,7 +58,7 @@ export default function ResetPassword({
       }
     } catch (error) {
       setLoading(false);
-      toast.error(error);
+      toast.error("Sai Dữ Liệu");
     }
   }
   const toLogin = () => {
@@ -66,7 +67,7 @@ export default function ResetPassword({
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView style={{ paddingHorizontal: 30 }}>
-        <Text style={styles.heading}>Đăng nhập</Text>
+        <Text style={styles.heading}>Lấy Lại Mật Khẩu</Text>
         <Formik
           initialValues={initialValues}
           onSubmit={ForgotPass}
@@ -104,6 +105,8 @@ export default function ResetPassword({
                   error={errors.code}
                   touched={touched.code}
                   icon="code"
+                  keyboardType= 'number-pad'
+                  
                 />
                 <TextInput
                   label="Mật khẩu"
@@ -117,11 +120,11 @@ export default function ResetPassword({
                 />
                 <TextInput
                   label="Xác nhận mật khẩu"
-                  onChangeText={handleChange("confirmPassword")}
-                  onBlur={handleBlur("confirmPassword")}
-                  value={values.confirmPassword}
-                  error={errors.confirmPassword}
-                  touched={touched.confirmPassword}
+                  onChangeText={handleChange("passwordConfirm")}
+                  onBlur={handleBlur("passwordConfirm")}
+                  value={values.passwordConfirm}
+                  error={errors.passwordConfirm}
+                  touched={touched.passwordConfirm}
                   icon="lock"
                   secureTextEntry={true}
                 />
@@ -133,6 +136,16 @@ export default function ResetPassword({
                 </Button>
 
                 <Social type="login" onPress={toLogin} />
+                <View style={{
+                  justifyContent: 'center'
+                }}>
+                <Link
+                  textStyle={{ fontWeight: "bold", color: Colors.gray6 }}
+                  onPress={() => navigation.navigate("ForgotPassword")}
+                >
+                  Bạn Không Nhận Được Mã
+                </Link>
+                </View>
               </View>
             );
           }}
