@@ -153,7 +153,7 @@ export default function ({
           </Text>
           <ScrollView
             style={{
-              height: 85,
+              height: 80,
             }}
           >
             {list.map((item: any, index) => {
@@ -220,7 +220,7 @@ export default function ({
               style={{
                 color: Colors.gray6,
                 textDecorationLine: "underline",
-                lineHeight: 50,
+                lineHeight: 30,
                 fontSize: 16,
               }}
             >
@@ -239,7 +239,7 @@ export default function ({
           <View>
             <View
               style={{
-                marginTop: 10,
+                marginTop: 5,
               }}
             >
               <View
@@ -305,7 +305,7 @@ export default function ({
                       marginBottom: 15,
                     }}
                   >
-                    Thông Tin Của Bạn
+                    Thông Tin Của Bạn 
                   </Text>
                 </View>
                 <View
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 17,
     fontWeight: "500",
-    lineHeight: 40,
+    lineHeight: 30,
   },
   textProduct: {
     fontSize: 16,

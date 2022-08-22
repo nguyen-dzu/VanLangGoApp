@@ -40,7 +40,7 @@ export default function ({
   const [listProduct, setListProduct]: any = useState([]);
   const [rerenderProduct, setRerenderProduct]: any = useState([]);
   const [search, setSearch] = useState("");
- 
+
   const goCart = () => {
     navigation.navigate("Cart");
   };
@@ -150,15 +150,12 @@ export default function ({
   };
   return (
     <View>
-      <ScrollView
-      
+      <View
         style={{
-          height: heightScreen * 0.89,
+          height: heightScreen * 0.88,
+          marginHorizontal: 10
         }}
       >
-        <KeyboardAwareScrollView
-          contentContainerStyle={{ paddingHorizontal: 10 }}
-        >
           <View
             style={{
               alignItems: "center",
@@ -280,7 +277,7 @@ export default function ({
                 <Text style={styles.textItem}>(999+) Đã Bán</Text>
               </View>
             </View>
-            <ScrollView
+            <View
               horizontal={true}
               style={{
                 flexDirection: "row",
@@ -312,7 +309,7 @@ export default function ({
                   color={Colors.black}
                 />
               </View>
-            </ScrollView>
+            </View>
           </View>
           <View
             style={{
@@ -329,25 +326,7 @@ export default function ({
               }}
             ></View>
           </View>
-          <View
-            style={{
-              alignItems: "center",
-            }}
-          >
-            <TextInput
-              containerStyle={{ marginBottom: 0 }}
-              placeholder="Tìm kiếm Món Ăn, Quán Ăn ... "
-              style={{
-                borderRadius: 30,
-                width: widthScreen * 0.9,
-                marginHorizontal: 20,
-                backgroundColor: "#F8F8F8",
-              }}
-              icon={"search"}
-              value={search}
-              onChangeText={(text) => handelSearch(text)}
-            />
-          </View>
+
           <FlatList
             data={item.products}
             keyExtractor={(item, index) => item.id + index + 1}
@@ -374,8 +353,7 @@ export default function ({
               );
             }}
           />
-        </KeyboardAwareScrollView>
-      </ScrollView>
+      </View>
       {showCart == true ? (
         <View>
           <FooterCart />

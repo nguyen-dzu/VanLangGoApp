@@ -46,11 +46,12 @@ export default function ({
     >
       <View
         style={{
-          alignItems: "center",
           height: "92%",
         }}
       >
-        <View>
+        <View style={{
+          alignItems: 'center'
+        }}>
           <Image source={require("../../../assets/images/iconApp.png")} />
         </View>
         <View
@@ -58,49 +59,56 @@ export default function ({
             width: widthScreen * 0.9,
             height: 0,
             borderWidth: 1,
-            marginVertical: 20,
+            marginVertical: 10,
             borderColor: "#C9C9C9",
           }}
         ></View>
-        <View>
+        <View >
           <Text
             style={{
+              textAlign: 'center',
               fontSize: 23,
               fontWeight: "600",
-              color: Colors.gray3,
+              color: Colors.gray6
             }}
           >
             Đơn Hàng Của Bạn
           </Text>
           <View style={{
             flexDirection: 'row',
+            justifyContent: 'space-between'
           }}>
             <Text style={{
               marginRight: 10,
               fontSize: 18,
+              color: '#999999',
               fontWeight: '400',
-              color: '#999999'
+              lineHeight: 30,
             }}>Địa Chỉ Đặt Hàng: </Text>
             <Text>{toDoList.address}</Text>
           </View>
           <View style={{
             flexDirection: 'row',
+            justifyContent: 'space-between'
           }}>
             <Text style={{
               marginRight: 10,
               fontSize: 18,
               fontWeight: '400',
-              color: '#999999'
+              color: '#999999',
+              lineHeight: 30,
             }}>Số Điện Thoại: </Text>
             <Text>{toDoList.phoneNumber}</Text>
           </View>
           <View style={{
             flexDirection: 'row',
+            justifyContent: 'space-between'
           }}>
             <Text style={{
               marginRight: 10,
               fontSize: 18,
               fontWeight: '400',
+              lineHeight: 30,
               color: '#999999'
             }}>Ghi Chú: </Text>
             <Text>{toDoList.note ? toDoList.note : <Text>...</Text>}</Text>
@@ -152,10 +160,10 @@ export default function ({
             }}>Phí Shipp: </Text>
             <Text style={{
 
-            }}>{toDoList.shippingFee.toLocaleString("vi", {
+            }}>{toDoList.shippingFee ? toDoList.shippingFee.toLocaleString("vi", {
               style: "currency",
               currency: "VND",
-            })}</Text>
+            }): ''}</Text>
           </View>
           <View style={{
             flexDirection: 'row',
@@ -168,16 +176,19 @@ export default function ({
             }}>Tổng Đơn Hàng: </Text>
             <Text style={{
               color: Colors.gray6,
-            }}>{toDoList.total.toLocaleString("vi", {
+            }}>{toDoList.total? toDoList.total.toLocaleString("vi", {
               style: "currency",
               currency: "VND",
-            })}</Text>
+            }) : ''}</Text>
           </View>
           <View style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-            <Text>Trạng Thái Đơn Hàng: </Text>
+            <Text style={{
+              fontSize: 16,
+
+            }}>Trạng Thái Đơn Hàng: </Text>
             <Text style={{
               
             }}>
@@ -207,14 +218,7 @@ export default function ({
             </Text>
           </View>
         </View>
-        <View
-          style={{
-            width: widthScreen,
-            height: 0,
-            borderWidth: 2,
-            borderColor: "#f8f8f8",
-          }}
-        ></View>
+        
       </View>
       <TouchableOpacity
         style={{
