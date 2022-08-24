@@ -100,6 +100,7 @@ export default function ResetPassword({
                 <TextInput
                   label="Mã Xác Thực"
                   onChangeText={handleChange("code")}
+                  placeholder="Code"
                   onBlur={handleBlur("code")}
                   value={values.code}
                   error={errors.code}
@@ -111,6 +112,7 @@ export default function ResetPassword({
                 <TextInput
                   label="Mật khẩu"
                   onChangeText={handleChange("password")}
+                  placeholder="Mật khẩu"
                   onBlur={handleBlur("password")}
                   value={values.password}
                   error={errors.password}
@@ -121,6 +123,7 @@ export default function ResetPassword({
                 <TextInput
                   label="Xác nhận mật khẩu"
                   onChangeText={handleChange("passwordConfirm")}
+                  placeholder="Xác nhận mật khẩu"
                   onBlur={handleBlur("passwordConfirm")}
                   value={values.passwordConfirm}
                   error={errors.passwordConfirm}
