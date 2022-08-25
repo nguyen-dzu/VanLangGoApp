@@ -50,13 +50,15 @@ export default function ({
     let loginParam = {
       restaurantName: params.restaurantName,
       address: params.address,
-      addressType: params.addressType,
+      addressType: valueSelect,
       emailAddress: params.emailAddress,
       fullName: params.fullName,
       phoneNumber: params.phoneNumber,
     };
+    console.log(loginParam)
     try {
       const data = await authApi.signUpRestaurant(loginParam);
+      console.log(loginParam)
       setLoading(false);
       toast.success("Đăng Ký Thành Công!");
       toast.warning("Kiểm Tra Email Của Bạn Để Có Thông Tin Đăng Nhập Nhé !");
@@ -103,6 +105,7 @@ export default function ({
                     value={values.restaurantName}
                     error={errors.restaurantName}
                     touched={touched.restaurantName}
+                    placeholder='Tên Quán Ăn'
                     icon="shopping-cart"
                   />
                   <TextInput
@@ -112,6 +115,7 @@ export default function ({
                     value={values.address}
                     error={errors.address}
                     touched={touched.address}
+                    placeholder='Địa Chỉ Quán Ăn'
                     icon="map"
                   />
                   <Text style={{
@@ -130,6 +134,7 @@ export default function ({
                     value={values.emailAddress}
                     error={errors.emailAddress}
                     touched={touched.emailAddress}
+                    placeholder='email của bạn'
                     icon="mail"
                   />
                   <TextInput
@@ -137,6 +142,7 @@ export default function ({
                     onChangeText={handleChange("fullName")}
                     onBlur={handleBlur("fullName")}
                     value={values.fullName}
+                    placeholder="Họ Và Tên Chủ Quán"
                     error={errors.fullName}
                     touched={touched.fullName}
                     icon="user"
@@ -149,6 +155,7 @@ export default function ({
                     error={errors.phoneNumber}
                     touched={touched.phoneNumber}
                     placeholder="phoneNumber"
+                    placeholder="Số Điện Thoại"
                     icon="phone"
                     secureTextEntry={false}
                     keyboardType="number-pad"
@@ -156,6 +163,7 @@ export default function ({
                   <Button
                     style={styles.buttonLogin}
                     onPress={handleSubmit as () => void}
+                    
                   >
                     Đăng Ký
                   </Button>
