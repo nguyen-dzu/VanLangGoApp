@@ -31,8 +31,7 @@ export default function ({
         dispatch(actions.menu.setListOrder(data));
         const timerLoader = setTimeout(() => {
           setLoading(!loading);
-        }, 3000);
-        return clearTimeout(timerLoader);
+        }, 4000);
       }
     };
     fetchOrderDetail();
@@ -196,10 +195,6 @@ export default function ({
                 <Text  style={{
                   color: Colors.secondary,
                 }}>Đang Chờ </Text>
-              ) : toDoList.orderStatus == 1 ? (
-                <Text style={{
-                  color: Colors.warning,
-                }}>Đang Chuẩn Bị</Text>
               ) : toDoList.orderStatus == 2 ? (
                 <Text style={{
                   color: Colors.tertiary,

@@ -49,7 +49,11 @@ export default function ({ item }: { item: IRestaurant }) {
           >
             {item.name}
           </Text>
-          <Text>{item.address}</Text>
+          <Text
+                style={{
+                  width: 150
+                }}          
+          >{item.address}</Text>
         </View>
       </View>
       <TouchableOpacity
