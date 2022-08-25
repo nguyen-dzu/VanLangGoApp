@@ -50,10 +50,12 @@ export default function ({ item }: { item: IRestaurant }) {
             {item.name}
           </Text>
           <Text
-                style={{
-                  width: 150
-                }}          
-          >{item.address}</Text>
+            style={{
+              width: 150,
+            }}
+          >
+            {item.address}
+          </Text>
         </View>
       </View>
       <TouchableOpacity
@@ -66,7 +68,7 @@ export default function ({ item }: { item: IRestaurant }) {
           alignItems: "center",
           alignContent: "center",
         }}
-        onPress = { goRestaurant }
+        onPress={goRestaurant}
       >
         <Text
           style={{
